@@ -89,7 +89,7 @@ PermissionHandlerWindowsPlugin::~PermissionHandlerWindowsPlugin() = default;
 void PermissionHandlerWindowsPlugin::HandleMethodCall(
     const MethodCall<>& method_call,
     std::unique_ptr<MethodResult<>> result) {
-  
+
   auto methodName = method_call.method_name();
   if (methodName.compare("checkServiceStatus") == 0) {
     auto permission = (PermissionConstants::PermissionGroup)std::get<int>(*method_call.arguments());
@@ -104,7 +104,7 @@ void PermissionHandlerWindowsPlugin::HandleMethodCall(
     }
 
     result->Success(EncodableValue((int)PermissionConstants::ServiceStatus::NOT_APPLICABLE));
-    
+
   } else if (methodName.compare("checkPermissionStatus") == 0) {
     result->Success(EncodableValue((int)PermissionConstants::PermissionStatus::GRANTED));
   } else if (methodName.compare("requestPermissions") == 0) {
@@ -116,7 +116,7 @@ void PermissionHandlerWindowsPlugin::HandleMethodCall(
                     [](const EncodableValue& encoded) {
                       return std::get<int>(encoded);
                     });
-    
+
     EncodableMap requestResults;
 
     for (int i=0;i<permissions.size();i++) {
@@ -140,12 +140,12 @@ winrt::fire_and_forget PermissionHandlerWindowsPlugin::IsBluetoothServiceEnabled
     result->Success(EncodableValue((int)PermissionConstants::ServiceStatus::DISABLED));
     co_return;
   }
-  
+
   if (!btAdapter.IsCentralRoleSupported()) {
     result->Success(EncodableValue((int)PermissionConstants::ServiceStatus::DISABLED));
     co_return;
   }
-  
+
   auto radios = co_await Radio::GetRadiosAsync();
 
   for (uint32_t i=0; i<radios.Size(); i++) {
