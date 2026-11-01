@@ -2,7 +2,7 @@
 
 Mimio is a Chinese/English desktop fork of Minutes for Speakr, with a redesigned recording workspace, shared rounded controls, themes, and a device-local avatar URL setting.
 
-**[Download Mimio 0.3.25](https://github.com/i-iooi-i/Minutes-for-Speakr/releases/tag/mimio-v0.3.25)** · **[简体中文使用说明](README.zh-CN.md)**
+**[Download Mimio 0.3.26](https://github.com/i-iooi-i/Minutes-for-Speakr/releases/tag/mimio-v0.3.26)** · **[简体中文使用说明](README.zh-CN.md)**
 
 The Windows portable release contains application files only. Configure your own Speakr server after extraction; personal credentials, avatar URLs, recordings, and preferences are not bundled. This fork's current release is Windows-only. Original project credits and license are preserved below.
 
