@@ -4,18 +4,18 @@
 
 A Windows companion for recording, reviewing and organizing audio with your own [Speakr](https://github.com/murtaza-nasir/speakr) server. A compact recorder when you need space; a full workspace when you need the details.
 
-**[简体中文](README.zh-CN.md)** · **[Download](https://github.com/i-iooi-i/Minutes-for-Speakr/releases)** · **[Speakr documentation](https://murtaza-nasir.github.io/speakr/)** · **[MIT license](LICENSE)**
+**[简体中文](README.zh-CN.md)** · **[Download](https://github.com/i-iooi-i/Mimio/releases)** · **[Speakr documentation](https://murtaza-nasir.github.io/speakr/)** · **[MIT license](LICENSE)**
 
-Mimio is a community-maintained fork of [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr). It is not an official Speakr client and is not maintained or endorsed by the Speakr team. You need your own Speakr server and API token; transcription and AI features are provided by that server.
+Mimio is an independently maintained desktop client based on [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr). It is not an official Speakr client and is not maintained or endorsed by the Speakr team. You need your own Speakr server and API token; transcription and AI features are provided by that server.
 
 ## Version status
 
 | | Version | What it contains |
 | --- | --- | --- |
 | Current source | **0.3.36** | Recorder capsule, theme consistency, server settings synchronization and credential privacy fixes |
-| Published Windows download | **[0.3.26](https://github.com/i-iooi-i/Minutes-for-Speakr/releases/tag/mimio-v0.3.26)** | The previous portable release, including the Windows location-startup fix |
+| Published Windows download | **[0.3.26](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.26)** | The previous portable release, including the Windows location-startup fix |
 
-The features below describe the current source. A source update does not replace the downloadable release. This fork currently validates **Windows x64**; Android/iOS code inherited from upstream is not a verified Mimio release.
+The features below describe the current source. A source update does not replace the downloadable release. Mimio currently validates **Windows x64**; Android/iOS code inherited from upstream is not a verified Mimio release.
 
 ## What you can do
 
@@ -28,7 +28,7 @@ The features below describe the current source. A source update does not replace
 ## Get started
 
 1. Set up a reachable Speakr server and create an API token in its settings. Grant the permissions needed for the actions you intend to use.
-2. Download the Windows ZIP from this repository's [Releases](https://github.com/i-iooi-i/Minutes-for-Speakr/releases). Check its `SHA256SUMS.txt`, extract the complete folder and run `speakr_app.exe`.
+2. Download the Windows ZIP from this repository's [Releases](https://github.com/i-iooi-i/Mimio/releases). Check its `SHA256SUMS.txt`, extract the complete folder and run `speakr_app.exe`.
 3. Enter your server address and API token. Use the final server address: authenticated API requests do not automatically follow redirects.
 4. Select your recording sources and start recording. Processing, summaries and other AI capabilities depend on your server configuration.
 

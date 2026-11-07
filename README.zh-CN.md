@@ -4,7 +4,7 @@
 
 连接你自己的 [Speakr](https://github.com/murtaza-nasir/speakr) 服务，在 Windows 上录音、整理资料、阅读转录与摘要。录音时用小巧的胶囊控制，整理时回到完整工作区。
 
-**[English](README.md)** · **[下载](https://github.com/i-iooi-i/Minutes-for-Speakr/releases)** · **[Speakr 文档](https://murtaza-nasir.github.io/speakr/)** · **[MIT 许可证](LICENSE)**
+**[English](README.md)** · **[下载](https://github.com/i-iooi-i/Mimio/releases)** · **[Speakr 文档](https://murtaza-nasir.github.io/speakr/)** · **[MIT 许可证](LICENSE)**
 
 Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr) 开发的社区分支，不是 Speakr 官方客户端，也不由 Speakr 团队维护或背书。使用前需要准备自己的 Speakr 服务器和 API 令牌；转录及 AI 功能由服务端提供。
 
@@ -13,7 +13,7 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 | | 版本 | 说明 |
 | --- | --- | --- |
 | 当前源码 | **0.3.36** | 胶囊录音条、主题统一、服务端设置同步与凭据隐私修复 |
-| 已发布的 Windows 下载 | **[0.3.26](https://github.com/i-iooi-i/Minutes-for-Speakr/releases/tag/mimio-v0.3.26)** | 上一个绿色版，包含启动时触发 Windows 定位的修复 |
+| 已发布的 Windows 下载 | **[0.3.26](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.26)** | 上一个绿色版，包含启动时触发 Windows 定位的修复 |
 
 以下功能介绍以当前源码为准。推送源码不等于更新下载包。本分支目前验证的是 **Windows x64**；仓库保留上游 Android/iOS 代码，但没有将其作为已验证的 Mimio 移动端发布。
 
@@ -28,7 +28,7 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 ## 开始使用
 
 1. 准备可访问的 Speakr 服务，在服务端设置中创建 API 令牌，并赋予所需操作权限。
-2. 从本仓库 [Releases](https://github.com/i-iooi-i/Minutes-for-Speakr/releases) 下载 Windows ZIP，核对 `SHA256SUMS.txt` 后完整解压，运行 `speakr_app.exe`。
+2. 从本仓库 [Releases](https://github.com/i-iooi-i/Mimio/releases) 下载 Windows ZIP，核对 `SHA256SUMS.txt` 后完整解压，运行 `speakr_app.exe`。
 3. 填写服务器地址和 API 令牌。请使用最终服务地址，携带认证的 API 请求不会自动跟随跳转。
 4. 选择录音来源并开始录音。转录、摘要等能力取决于你的服务端配置。
 
