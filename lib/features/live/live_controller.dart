@@ -32,6 +32,9 @@ enum RecordingNav { toLibrary, pop }
 class RecordingController extends StateNotifier<RecordingState> {
   RecordingController(this._ref) : super(const RecordingState()) {
     _registerMainIpcHandler();
+    if (!kIsWeb && Platform.isWindows) {
+      MiniWindowNative.setMainRestoreHandler(hideMini);
+    }
     appLanguage.addListener(_pushLanguageToMini);
     appAppearance.addListener(_pushLanguageToMini);
     addListener(_pushStateToMini, fireImmediately: false);
@@ -156,6 +159,7 @@ class RecordingController extends StateNotifier<RecordingState> {
         return null;
       case MiniIpc.cmdShowMain:
         await MiniWindowNative.focusMain();
+        await hideMini();
         // Route the main app to /live so the user lands on the recording
         // page, not whatever screen they were on before opening the pill.
         try {
@@ -759,7 +763,7 @@ class RecordingController extends StateNotifier<RecordingState> {
       );
       _miniController = c;
       await c.setTitle(tr("Mimio Recording"));
-      await c.show();
+      // Native chrome sizes the hidden window before making it visible.
       // Update state — listener will push the current snapshot to the mini.
       state = state.copyWith(miniOpen: true, miniWindowId: c.windowId);
       // Push initial server tags so the mini's suggestion list matches main.
@@ -795,6 +799,7 @@ class RecordingController extends StateNotifier<RecordingState> {
     } catch (_) {}
     // Belt-and-braces: kill via native too.
     await MiniWindowNative.closeMini();
+    await MiniWindowNative.focusMain();
     _miniController = null;
   }
 
@@ -831,6 +836,9 @@ class RecordingController extends StateNotifier<RecordingState> {
   void dispose() {
     appLanguage.removeListener(_pushLanguageToMini);
     appAppearance.removeListener(_pushLanguageToMini);
+    if (!kIsWeb && Platform.isWindows) {
+      MiniWindowNative.setMainRestoreHandler(null);
+    }
     _ticker?.cancel();
     _unsubscribeAudioLevel();
     _recorder.dispose();

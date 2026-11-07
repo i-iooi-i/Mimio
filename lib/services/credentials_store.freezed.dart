@@ -35,10 +35,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => Object.hash(runtimeType,baseUrl,token);
 
-@override
-String toString() {
-  return 'SpeakrCredentials(baseUrl: $baseUrl, token: $token)';
-}
 
 
 }
@@ -203,8 +199,8 @@ return $default(_that.baseUrl,_that.token);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _SpeakrCredentials implements SpeakrCredentials {
-  const _SpeakrCredentials({required this.baseUrl, required this.token});
+class _SpeakrCredentials extends SpeakrCredentials {
+  const _SpeakrCredentials({required this.baseUrl, required this.token}): super._();
   factory _SpeakrCredentials.fromJson(Map<String, dynamic> json) => _$SpeakrCredentialsFromJson(json);
 
 @override final  String baseUrl;
@@ -230,10 +226,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => Object.hash(runtimeType,baseUrl,token);
 
-@override
-String toString() {
-  return 'SpeakrCredentials(baseUrl: $baseUrl, token: $token)';
-}
 
 
 }

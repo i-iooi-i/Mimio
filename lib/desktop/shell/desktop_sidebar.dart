@@ -85,9 +85,9 @@ class DesktopSidebar extends ConsumerWidget {
             const SizedBox(height: 12),
             IconButton(
               tooltip: tr('Start recording'),
-              icon: const Icon(
+              icon: Icon(
                 Icons.mic_none_rounded,
-                color: SpeakrColors.recordRed,
+                color: SpeakrColors.accent,
               ),
               style: navStyle(!onLibrary),
               onPressed: () => context.go('/live'),
@@ -151,7 +151,7 @@ class DesktopSidebar extends ConsumerWidget {
                     _NavItem(
                       label: tr('Start recording'),
                       icon: Icons.mic_none_rounded,
-                      iconColor: SpeakrColors.recordRed,
+                      iconColor: SpeakrColors.accent,
                       active: active == DesktopShellRoute.recording,
                       onTap: () => context.go('/live'),
                     ),

@@ -271,7 +271,7 @@ class _SpeakerReviewScreenState extends ConsumerState<SpeakerReviewScreen> {
                   size: 14.5,
                   height: 1.45,
                   color: SpeakrColors.ink2,
-                  style: FontStyle.italic,
+                  style: FontStyle.normal,
                 ),
               ),
               const SizedBox(height: 20),
@@ -557,8 +557,8 @@ class _SuggestionChip extends StatelessWidget {
   Widget build(BuildContext context) {
     LanguageScope.watch(context);
     AppearanceScope.watch(context);
-    final bg = highlighted ? SpeakrColors.ink : SpeakrColors.bg;
-    final fg = highlighted ? SpeakrColors.bg : SpeakrColors.ink;
+    final bg = highlighted ? SpeakrColors.accent : SpeakrColors.bg;
+    final fg = highlighted ? SpeakrColors.onAccent : SpeakrColors.ink;
     return Tooltip(
       message: tr("similarity {0}% · {1} clip{2}", [
         suggestion.similarity.toStringAsFixed(0),
@@ -591,7 +591,7 @@ class _SuggestionChip extends StatelessWidget {
                   '${suggestion.similarity.toStringAsFixed(0)}%',
                   style: SpeakrText.mono(
                     size: 10,
-                    color: highlighted ? SpeakrColors.bg : SpeakrColors.muted,
+                    color: highlighted ? SpeakrColors.onAccent : SpeakrColors.muted,
                   ),
                 ),
               ],

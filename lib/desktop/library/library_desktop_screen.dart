@@ -637,7 +637,7 @@ mixin _PendingActionsMixin<T extends ConsumerStatefulWidget>
           TextButton(
             onPressed: () =>
                 Navigator.pop(dialogCtx, _PendingErrorAction.delete),
-            style: TextButton.styleFrom(foregroundColor: SpeakrColors.danger),
+            style: TextButton.styleFrom(foregroundColor: SpeakrColors.accent),
             child: Text(tr("Delete file")),
           ),
           TextButton(
@@ -740,7 +740,7 @@ class _PendingListRowState extends ConsumerState<_PendingListRow>
                     size: 17,
                     height: 1.2,
                     color: SpeakrColors.ink2,
-                    style: FontStyle.italic,
+                    style: FontStyle.normal,
                   ),
                 ),
               ),
@@ -1230,7 +1230,7 @@ class _PendingGridCardState extends ConsumerState<_PendingGridCard>
                   size: 17,
                   height: 1.25,
                   color: SpeakrColors.ink2,
-                  style: FontStyle.italic,
+                  style: FontStyle.normal,
                 ),
               ),
               const Spacer(),

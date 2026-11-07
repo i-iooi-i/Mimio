@@ -40,6 +40,31 @@ void main() {
       }
     },
   );
+  testWidgets('avatar input text stays vertically centered', (tester) async {
+    for (final scale in [1.0, 1.5]) {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: MediaQuery(
+            data: MediaQueryData(textScaler: TextScaler.linear(scale)),
+            child: Scaffold(
+              body: SingleChildScrollView(
+                child: AvatarSettings(controller: LocalAvatarController()),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.enterText(
+        find.byType(TextField),
+        'https://example.com/avatar.png',
+      );
+      await tester.pump();
+      final field = tester.getRect(find.byType(TextField));
+      final text = tester.getRect(find.byType(EditableText));
+      expect((field.center.dy - text.center.dy).abs(), lessThanOrEqualTo(1.5));
+      expect(tester.takeException(), isNull);
+    }
+  });
   testWidgets(
     'invalid input displays an error; default restoration clears the editor',
     (tester) async {
@@ -52,7 +77,14 @@ void main() {
       await tester.enterText(find.byType(TextField), 'not-a-url');
       await tester.tap(find.byType(FilledButton));
       await tester.pumpAndSettle();
-      expect(find.text(tr('Enter a valid HTTP or HTTPS image URL without account credentials.')), findsOneWidget);
+      expect(
+        find.text(
+          tr(
+            'Enter a valid HTTP or HTTPS image URL without account credentials.',
+          ),
+        ),
+        findsOneWidget,
+      );
       await tester.tap(find.byType(TextButton));
       await tester.pumpAndSettle();
       expect(

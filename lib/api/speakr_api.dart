@@ -305,7 +305,22 @@ class SpeakrApi {
     return Config.fromJson(res);
   }
 
+  Future<Map<String, dynamic>> getCurrentUser() =>
+      _get<Map<String, dynamic>>('/users/me');
+  Future<Map<String, dynamic>> getTranscriptionInfo() =>
+      _get<Map<String, dynamic>>('/transcription');
+
   // ── Settings ──────────────────────────────────────────────────────────────
+  Future<Map<String, dynamic>> getFolderSettings(int id) async =>
+      _unwrap(await _get<Map<String, dynamic>>('/folders/$id'), 'folder');
+
+  Future<void> updateFolderSettings(
+    int id,
+    Map<String, dynamic> changes,
+  ) async {
+    await _request(() => _dio.patch<dynamic>('/folders/$id', data: changes));
+  }
+
   Future<void> setAutoSummarization(bool enabled) async {
     await _put<Map<String, dynamic>>('/settings/auto-summarization', {
       'enabled': enabled,

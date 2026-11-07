@@ -181,7 +181,7 @@ class _ProgressDots extends StatelessWidget {
               margin: EdgeInsets.only(right: i == total - 1 ? 0 : 6),
               height: 2,
               decoration: BoxDecoration(
-                color: i <= step ? SpeakrColors.ink : SpeakrColors.line,
+                color: i <= step ? SpeakrColors.accent : SpeakrColors.line,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -238,7 +238,7 @@ class _Slide extends StatelessWidget {
                           style: SpeakrText.serif(
                             size: 32,
                             height: 1.15,
-                            style: FontStyle.italic,
+                            style: FontStyle.normal,
                           ),
                         ),
                         if (headlineTail.isNotEmpty)
@@ -296,6 +296,7 @@ class _ServerArt extends StatelessWidget {
 }
 
 class _ServerStackPainter extends CustomPainter {
+  _ServerStackPainter() : super(repaint: appAppearance);
   @override
   void paint(Canvas canvas, Size size) {
     final stroke = Paint()
@@ -308,7 +309,7 @@ class _ServerStackPainter extends CustomPainter {
         const Radius.circular(2),
       );
       canvas.drawRRect(r, stroke);
-      final dotColor = i == 2 ? const Color(0xFF3DDC97) : SpeakrColors.ink;
+      final dotColor = i == 2 ? SpeakrColors.accent : SpeakrColors.ink;
       canvas.drawCircle(
         Offset(20, 25.0 + i * 18),
         1.5,
@@ -353,7 +354,7 @@ class _ConnectForm extends StatelessWidget {
                   style: SpeakrText.serif(
                     size: 32,
                     height: 1.15,
-                    style: FontStyle.italic,
+                    style: FontStyle.normal,
                   ),
                 ),
               ],
@@ -478,8 +479,8 @@ class _Footer extends StatelessWidget {
                 FilledButton(
                   onPressed: connecting ? null : onNext,
                   style: FilledButton.styleFrom(
-                    backgroundColor: SpeakrColors.ink,
-                    foregroundColor: SpeakrColors.bg,
+                    backgroundColor: SpeakrColors.accent,
+                    foregroundColor: SpeakrColors.onAccent,
                     shape: const StadiumBorder(),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,

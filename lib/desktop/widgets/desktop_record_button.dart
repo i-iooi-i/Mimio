@@ -20,7 +20,7 @@ class DesktopRecordButton extends StatelessWidget {
         height: 40,
         padding: const EdgeInsets.symmetric(horizontal: 14),
         decoration: BoxDecoration(
-          color: SpeakrColors.ink,
+          color: SpeakrColors.accent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -30,8 +30,8 @@ class DesktopRecordButton extends StatelessWidget {
             Container(
               width: 8,
               height: 8,
-              decoration: const BoxDecoration(
-                color: SpeakrColors.recordingDot,
+              decoration: BoxDecoration(
+                color: SpeakrColors.onAccent,
                 shape: BoxShape.circle,
               ),
             ),
@@ -41,7 +41,7 @@ class DesktopRecordButton extends StatelessWidget {
               style: SpeakrText.sans(
                 size: 13,
                 weight: FontWeight.w500,
-                color: SpeakrColors.bg,
+                color: SpeakrColors.onAccent,
                 letterSpacing: 0.2,
               ),
             ),
@@ -51,9 +51,9 @@ class DesktopRecordButton extends StatelessWidget {
                 '${modLabel}R',
                 style: SpeakrText.mono(
                   size: 10,
-                  color: SpeakrColors.bg,
+                  color: SpeakrColors.onAccent,
                   letterSpacing: 0.5,
-                ).copyWith(color: SpeakrColors.bg.withValues(alpha: 0.6)),
+                ).copyWith(color: SpeakrColors.onAccent.withValues(alpha: 0.6)),
               ),
             ],
           ],

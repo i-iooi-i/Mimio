@@ -5,6 +5,7 @@
 #include <flutter/method_channel.h>
 #include <flutter/standard_method_codec.h>
 #include <windows.h>
+#include <commctrl.h>
 
 #include <memory>
 
@@ -34,9 +35,16 @@ class MiniWindowNative {
   void TryApplyOnce();
   HWND FindMiniHwnd();
 
+  static LRESULT CALLBACK MiniSubclassProc(HWND hwnd, UINT message,
+      WPARAM wparam, LPARAM lparam, UINT_PTR id, DWORD_PTR data);
+  void ApplyCorners(HWND hwnd, UINT dpi);
+  bool preview_taskbar_ = false;
+  HWND mini_hwnd_ = nullptr;
+  HWND capsule_surface_ = nullptr;
+  void UpdateCapsuleSurface(HWND hwnd);
   HWND main_hwnd_;
-  int pending_width_ = 248;
-  int pending_height_ = 40;
+  int pending_width_ = 320;
+  int pending_height_ = 56;
   int apply_attempts_ = 0;
   bool apply_in_progress_ = false;
 

@@ -1,3 +1,4 @@
+import '../../theme/appearance.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/colors.dart';
@@ -23,11 +24,12 @@ class DesktopToolButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     final btn = Material(
-      color: selected ? SpeakrColors.ink : SpeakrColors.surface,
+      color: selected ? SpeakrColors.accent : SpeakrColors.surface,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: selected ? SpeakrColors.ink : SpeakrColors.line,
+          color: selected ? SpeakrColors.accent : SpeakrColors.line,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -41,7 +43,7 @@ class DesktopToolButton extends StatelessWidget {
             child: SpeakrIconView(
               icon,
               size: 14,
-              color: selected ? SpeakrColors.bg : SpeakrColors.ink2,
+              color: selected ? SpeakrColors.onAccent : SpeakrColors.ink2,
             ),
           ),
         ),
@@ -55,6 +57,7 @@ class DesktopDivider extends StatelessWidget {
   const DesktopDivider({super.key});
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return Container(
       width: 1,
       height: 18,
@@ -115,6 +118,7 @@ class DesktopSegment<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return Container(
       decoration: BoxDecoration(
         color: SpeakrColors.surface,
@@ -158,6 +162,7 @@ class DesktopSmallButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return Material(
       color: SpeakrColors.surface,
       shape: RoundedRectangleBorder(
@@ -204,6 +209,7 @@ class DesktopPillButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     final fg = foreground ?? SpeakrColors.ink;
     return Material(
       color: background ?? SpeakrColors.surface,

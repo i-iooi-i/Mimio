@@ -781,9 +781,9 @@ class _PermissionsBannerState extends State<_PermissionsBanner> {
       margin: const EdgeInsets.fromLTRB(24, 4, 24, 14),
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF6E0),
+        color: SpeakrColors.warningSurface,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: const Color(0xFFE8C97A)),
+        border: Border.all(color: SpeakrColors.warningBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -855,9 +855,9 @@ class _FolderAccessBanner extends ConsumerWidget {
       margin: const EdgeInsets.fromLTRB(24, 4, 24, 14),
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF6E0),
+        color: SpeakrColors.warningSurface,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: const Color(0xFFE8C97A)),
+        border: Border.all(color: SpeakrColors.warningBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1311,7 +1311,7 @@ class _PresetTile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: selected ? SpeakrColors.ink : SpeakrColors.line,
+                  color: selected ? SpeakrColors.accent : SpeakrColors.line,
                   width: selected ? 6 : 1,
                 ),
               ),

@@ -121,7 +121,7 @@ class MimioMenuItem<T> extends PopupMenuItem<T> {
                icon,
                size: 18,
                color: danger
-                   ? SpeakrColors.danger
+                   ? SpeakrColors.accent
                    : iconColor ?? SpeakrColors.ink2,
              ),
              const SizedBox(width: 12),
@@ -132,7 +132,7 @@ class MimioMenuItem<T> extends PopupMenuItem<T> {
                  overflow: TextOverflow.ellipsis,
                  style: SpeakrText.sans(
                    size: 13,
-                   color: danger ? SpeakrColors.danger : SpeakrColors.ink,
+                   color: danger ? SpeakrColors.accent : SpeakrColors.ink,
                  ),
                ),
              ),

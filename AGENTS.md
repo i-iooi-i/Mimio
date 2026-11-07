@@ -95,10 +95,10 @@ flutter build apk --debug --target-platform android-arm64
 
 ## Conventions
 
-- **Scope of changes**: keep diffs focused. The plan we're executing is in `C:\Users\Strit\.claude\plans\i-want-to-create-prancy-sutherland.md` if context is missing.
+- **Scope of changes**: keep diffs focused. Use the repository documentation and the current task for context; do not rely on a contributor's private filesystem.
 - **No new dependencies without justification.** The dep tree is fragile (see Pitfall 1, 2). Prefer hand-rolled.
 - **Localization:** user-visible strings use `tr()` and `lib/l10n/zh_cn.dart`. Widgets with translated copy subscribe via `LanguageScope.watch(context)`. Keep wire values, user content, and diagnostic logs untranslated.
-- **Don't commit secrets.** Tokens live in secure storage; the test server URL is fine to keep in code as a default placeholder.
+- **Don't commit secrets.** Tokens live in secure storage. Only reserved example domains or loopback addresses belong in test fixtures; never commit a real personal server address.
 - **Do not run destructive git operations** without asking. There is currently no git repo initialised in the parent dir — `flutter create` did not init one.
 - **Linting:** `flutter analyze` must report zero issues. Several lints are intentionally disabled in `analysis_options.yaml` — read it before adding `// ignore:` comments.
 

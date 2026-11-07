@@ -622,7 +622,7 @@ class _RightColumn extends StatelessWidget {
                         border: Border(
                           bottom: BorderSide(
                             color: selected
-                                ? SpeakrColors.ink
+                                ? SpeakrColors.accent
                                 : Colors.transparent,
                             width: 2,
                           ),
@@ -642,7 +642,7 @@ class _RightColumn extends StatelessWidget {
                               ][i],
                               size: 15,
                               color: selected
-                                  ? SpeakrColors.ink
+                                  ? SpeakrColors.accent
                                   : SpeakrColors.muted,
                             ),
                             const SizedBox(width: 5),
@@ -652,7 +652,7 @@ class _RightColumn extends StatelessWidget {
                                 size: 12.5,
                                 weight: FontWeight.w500,
                                 color: selected
-                                    ? SpeakrColors.ink
+                                    ? SpeakrColors.accent
                                     : SpeakrColors.muted,
                                 letterSpacing: 0.3,
                               ),

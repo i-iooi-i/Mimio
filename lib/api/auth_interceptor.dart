@@ -12,6 +12,8 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    // Custom authentication headers must not follow redirects to other hosts.
+    options.followRedirects = false;
     final c = await _creds.read();
     if (c != null) {
       // Always rewrite the base URL — secure storage is the source of truth.

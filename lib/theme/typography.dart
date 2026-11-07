@@ -47,6 +47,7 @@ class SpeakrText {
     ],
     fontSize: size,
     fontWeight: weight,
+    fontStyle: FontStyle.normal,
     color: color ?? SpeakrColors.ink,
     height: height,
     letterSpacing: letterSpacing,
@@ -66,6 +67,7 @@ class SpeakrText {
     ],
     fontSize: size,
     fontWeight: weight,
+    fontStyle: FontStyle.normal,
     color: color ?? SpeakrColors.muted,
     letterSpacing: letterSpacing,
   );
@@ -81,10 +83,10 @@ ThemeData buildSpeakrTheme() {
       surface: SpeakrColors.bg,
       surfaceContainerHighest: SpeakrColors.bgAlt,
       onSurface: SpeakrColors.ink,
-      primary: SpeakrColors.ink,
-      onPrimary: SpeakrColors.bg,
+      primary: SpeakrColors.accent,
+      onPrimary: SpeakrColors.onAccent,
       secondary: SpeakrColors.accent,
-      onSecondary: SpeakrColors.bg,
+      onSecondary: SpeakrColors.onAccent,
       error: SpeakrColors.danger,
       onError: SpeakrColors.bg,
       outline: SpeakrColors.line,
@@ -115,7 +117,7 @@ ThemeData buildSpeakrTheme() {
         weight: FontWeight.w600,
         color: SpeakrColors.ink,
       ),
-      bodyLarge: SpeakrText.serif(size: 14.5, height: 1.45),
+      bodyLarge: SpeakrText.sans(size: 14, height: 1.4),
       bodyMedium: SpeakrText.sans(size: 14, height: 1.4),
       bodySmall: SpeakrText.sans(
         size: 13,
@@ -161,8 +163,8 @@ ThemeData buildSpeakrTheme() {
       centerTitle: false,
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: SpeakrColors.ink,
-      foregroundColor: SpeakrColors.bg,
+      backgroundColor: SpeakrColors.accent,
+      foregroundColor: SpeakrColors.onAccent,
       elevation: 8,
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -179,7 +181,7 @@ ThemeData buildSpeakrTheme() {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: SpeakrColors.ink, width: 1.2),
+        borderSide: BorderSide(color: SpeakrColors.accent, width: 1.2),
       ),
     ),
   );

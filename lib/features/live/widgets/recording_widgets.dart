@@ -558,7 +558,7 @@ class _FolderSection extends StatelessWidget {
                     style: SpeakrText.sans(
                       size: 12,
                       color: SpeakrColors.muted,
-                    ).copyWith(fontStyle: FontStyle.italic),
+                    ).copyWith(fontStyle: FontStyle.normal),
                   ),
           if (pickerOpen)
             Wrap(
@@ -789,12 +789,12 @@ class _Segment<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     LanguageScope.watch(context);
     AppearanceScope.watch(context);
-    final fg = active ? SpeakrColors.bg : SpeakrColors.ink2;
+    final fg = active ? SpeakrColors.onAccent : SpeakrColors.ink2;
     return Semantics(
       selected: active,
       button: true,
       child: Material(
-        color: active ? SpeakrColors.ink : Colors.transparent,
+        color: active ? SpeakrColors.accent : Colors.transparent,
         borderRadius: BorderRadius.circular(100),
         child: InkWell(
           borderRadius: BorderRadius.circular(100),
@@ -911,7 +911,7 @@ class RecordingControls extends StatelessWidget {
                         width: 12,
                         height: 12,
                         decoration: BoxDecoration(
-                          color: SpeakrColors.recordingDot,
+                          color: SpeakrColors.accent,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
@@ -959,21 +959,14 @@ class RecordingControls extends StatelessWidget {
         width: 84,
         height: 84,
         decoration: BoxDecoration(
-          color: SpeakrColors.ink,
+          color: SpeakrColors.accent,
           shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x40000000),
-              blurRadius: 24,
-              offset: Offset(0, 12),
-            ),
-          ],
         ),
         child: Center(
           child: SpeakrIconView(
             paused ? SpeakrIcon.play : SpeakrIcon.pause,
             size: 28,
-            color: SpeakrColors.bg,
+            color: SpeakrColors.onAccent,
           ),
         ),
       ),

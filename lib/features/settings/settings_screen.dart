@@ -421,7 +421,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 child: TextButton(
                   onPressed: _signOut,
                   style: TextButton.styleFrom(
-                    foregroundColor: SpeakrColors.danger,
+                    foregroundColor: SpeakrColors.accent,
                     padding: EdgeInsets.zero,
                   ),
                   child: Text(tr("Sign out")),
@@ -500,14 +500,14 @@ class _TimeFormatSegments extends StatelessWidget {
         duration: const Duration(milliseconds: 140),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-          color: selected ? SpeakrColors.ink : Colors.transparent,
+          color: selected ? SpeakrColors.accent : Colors.transparent,
           borderRadius: BorderRadius.circular(100),
         ),
         child: Text(
           label,
           style: SpeakrText.mono(
             size: 11,
-            color: selected ? SpeakrColors.bg : SpeakrColors.muted,
+            color: selected ? SpeakrColors.onAccent : SpeakrColors.muted,
             letterSpacing: 0,
           ),
         ),

@@ -77,6 +77,10 @@ class SummaryTab extends ConsumerWidget {
   MarkdownStyleSheet _markdownStyles(BuildContext context) {
     final base = MarkdownStyleSheet.fromTheme(Theme.of(context));
     return base.copyWith(
+      em: const TextStyle(
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w500,
+      ),
       p: SpeakrText.serif(size: 13.5, height: 1.55, color: SpeakrColors.ink),
       h1: SpeakrText.serif(size: 20, height: 1.2, weight: FontWeight.w500),
       h2: SpeakrText.serif(size: 17, height: 1.3, weight: FontWeight.w500),
@@ -84,7 +88,7 @@ class SummaryTab extends ConsumerWidget {
       blockquote: SpeakrText.serif(
         size: 13.5,
         color: SpeakrColors.ink2,
-        style: FontStyle.italic,
+        style: FontStyle.normal,
       ),
       listBullet: SpeakrText.sans(size: 13.5, color: SpeakrColors.ink),
       code: SpeakrText.mono(size: 12, color: SpeakrColors.ink2),

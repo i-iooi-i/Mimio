@@ -161,13 +161,13 @@ Future<void> deleteRecording(
         ),
         TextButton(
           onPressed: () => Navigator.of(ctx).pop(true),
-          style: TextButton.styleFrom(foregroundColor: SpeakrColors.danger),
+          style: TextButton.styleFrom(foregroundColor: SpeakrColors.accent),
           child: Text(
             tr("Delete"),
             style: SpeakrText.sans(
               size: 13,
               weight: FontWeight.w600,
-              color: SpeakrColors.danger,
+              color: SpeakrColors.accent,
             ),
           ),
         ),

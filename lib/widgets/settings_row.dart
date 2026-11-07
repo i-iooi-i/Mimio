@@ -1,3 +1,4 @@
+import '../theme/appearance.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/colors.dart';
@@ -14,6 +15,7 @@ class SettingsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return Container(
       decoration: BoxDecoration(
         border: Border(top: BorderSide(color: SpeakrColors.line)),
@@ -62,6 +64,7 @@ class SettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     final body = Container(
       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
       decoration: BoxDecoration(
@@ -140,6 +143,7 @@ class SettingsToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return GestureDetector(
       onTap: () => onChanged(!value),
       child: AnimatedContainer(
@@ -147,7 +151,7 @@ class SettingsToggle extends StatelessWidget {
         width: 38,
         height: 22,
         decoration: BoxDecoration(
-          color: value ? SpeakrColors.ink : SpeakrColors.line,
+          color: value ? SpeakrColors.accent : SpeakrColors.line,
           borderRadius: BorderRadius.circular(100),
         ),
         child: Stack(
@@ -160,7 +164,7 @@ class SettingsToggle extends StatelessWidget {
                 width: 16,
                 height: 16,
                 decoration: BoxDecoration(
-                  color: SpeakrColors.bg,
+                  color: value ? SpeakrColors.onAccent : SpeakrColors.bg,
                   shape: BoxShape.circle,
                 ),
               ),

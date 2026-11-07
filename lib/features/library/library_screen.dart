@@ -438,7 +438,7 @@ class _PendingTileState extends ConsumerState<_PendingTile> {
           TextButton(
             onPressed: () =>
                 Navigator.pop(dialogCtx, _PendingErrorAction.delete),
-            style: TextButton.styleFrom(foregroundColor: SpeakrColors.danger),
+            style: TextButton.styleFrom(foregroundColor: SpeakrColors.accent),
             child: Text(tr("Delete file")),
           ),
           TextButton(
@@ -522,7 +522,7 @@ class _PendingTileState extends ConsumerState<_PendingTile> {
                       size: 17,
                       height: 1.25,
                       color: SpeakrColors.ink2,
-                      style: FontStyle.italic,
+                      style: FontStyle.normal,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -883,10 +883,10 @@ class _RecordFab extends StatelessWidget {
       height: 64,
       child: FloatingActionButton(
         onPressed: onTap,
-        backgroundColor: SpeakrColors.ink,
+        backgroundColor: SpeakrColors.accent,
         elevation: 8,
         shape: const CircleBorder(),
-        child: SpeakrIconView(SpeakrIcon.mic, size: 26, color: SpeakrColors.bg),
+        child: SpeakrIconView(SpeakrIcon.mic, size: 26, color: SpeakrColors.onAccent),
       ),
     );
   }

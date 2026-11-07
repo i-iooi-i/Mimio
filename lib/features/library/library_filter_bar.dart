@@ -102,14 +102,14 @@ class _FiltersPill extends StatelessWidget {
     LanguageScope.watch(context);
     AppearanceScope.watch(context);
     final filled = open || count > 0;
-    final fg = filled ? SpeakrColors.bg : SpeakrColors.ink2;
+    final fg = filled ? SpeakrColors.onAccent : SpeakrColors.ink2;
     return InkWell(
       borderRadius: BorderRadius.circular(100),
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: filled ? SpeakrColors.ink : Colors.transparent,
+          color: filled ? SpeakrColors.accent : Colors.transparent,
           borderRadius: BorderRadius.circular(100),
           border: filled ? null : Border.all(color: SpeakrColors.line),
         ),
@@ -371,7 +371,7 @@ class _PickerPanel extends ConsumerWidget {
                     active: filter.folderId == f.id,
                     tint: parseHexColor(f.color),
                     leading: (active) => _swatch(
-                      active ? SpeakrColors.bg : parseHexColor(f.color),
+                      active ? SpeakrColors.onAccent : parseHexColor(f.color),
                       square: true,
                       size: 7,
                     ),
@@ -452,14 +452,14 @@ class _PickerChip extends StatelessWidget {
     AppearanceScope.watch(context);
     final tinted = tint != null;
     final fg = tinted
-        ? (active ? SpeakrColors.bg : tint!)
-        : (active ? SpeakrColors.bg : SpeakrColors.ink);
+        ? (active ? SpeakrColors.onAccent : tint!)
+        : (active ? SpeakrColors.onAccent : SpeakrColors.ink);
     final bg = tinted
         ? (active ? tint! : Colors.transparent)
-        : (active ? SpeakrColors.ink : Colors.transparent);
+        : (active ? SpeakrColors.accent : Colors.transparent);
     final border = tinted
         ? (active ? tint! : tint!.withValues(alpha: 0.33))
-        : (active ? SpeakrColors.ink : SpeakrColors.line);
+        : (active ? SpeakrColors.accent : SpeakrColors.line);
     return InkWell(
       borderRadius: BorderRadius.circular(100),
       onTap: onTap,
@@ -517,7 +517,7 @@ Widget _statusLeading(String key, bool active) {
       return SpeakrIconView(
         SpeakrIcon.star,
         size: 10,
-        color: active ? SpeakrColors.bg : SpeakrColors.ink,
+        color: active ? SpeakrColors.onAccent : SpeakrColors.ink,
       );
   }
   return const SizedBox.shrink();

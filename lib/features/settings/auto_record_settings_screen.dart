@@ -1075,7 +1075,7 @@ class _SystemAudioSection extends ConsumerWidget {
                 size: 11.5,
                 color: SpeakrColors.muted,
                 height: 1.4,
-              ).copyWith(fontStyle: FontStyle.italic),
+              ).copyWith(fontStyle: FontStyle.normal),
             ),
           ),
       ],

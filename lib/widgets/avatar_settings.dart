@@ -4,7 +4,7 @@ import '../services/preferences/local_avatar.dart';
 import '../theme/appearance.dart';
 import '../theme/colors.dart';
 import '../theme/typography.dart';
-import '../theme/tokens.dart';
+import 'settings_field.dart';
 import 'user_avatar.dart';
 
 class AvatarSettings extends StatefulWidget {
@@ -18,7 +18,6 @@ class _AvatarSettingsState extends State<AvatarSettings> {
   LocalAvatarController get _avatar => widget.controller ?? localAvatar;
   late final _url = TextEditingController(text: _avatar.value);
   bool _saving = false;
-  bool _focused = false;
   String? _error;
 
   @override
@@ -84,38 +83,17 @@ class _AvatarSettingsState extends State<AvatarSettings> {
             UserAvatar(size: 64, controller: _avatar),
             const SizedBox(width: 16),
             Expanded(
-              child: Focus(
-                onFocusChange: (focused) => setState(() => _focused = focused),
-                child: Container(
-                  height: 34,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: SpeakrColors.surface,
-                    borderRadius: SpeakrRadius.menu,
-                    border: Border.all(color: _focused ? SpeakrColors.accent : SpeakrColors.line),
-                  ),
-                  child: TextField(
-                    controller: _url,
-                    enabled: !_saving,
-                    keyboardType: TextInputType.url,
-                    autocorrect: false,
-                    textAlignVertical: TextAlignVertical.center,
-                    style: SpeakrText.sans(size: 13),
-                    decoration: InputDecoration(
-                      hintText: tr('Avatar image URL'),
-                      hintStyle: SpeakrText.sans(size: 13, color: SpeakrColors.muted),
-                      isCollapsed: true,
-                      filled: false,
-                      contentPadding: EdgeInsets.zero,
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                    ),
-                    onSubmitted: (_) => _save(),
-                  ),
+              child: TextField(
+                controller: _url,
+                enabled: !_saving,
+                keyboardType: TextInputType.url,
+                autocorrect: false,
+                textAlignVertical: TextAlignVertical.center,
+                style: SpeakrText.sans(size: 14),
+                decoration: settingsInputDecoration(
+                  hintText: tr('Avatar image URL'),
                 ),
+                onSubmitted: (_) => _save(),
               ),
             ),
           ],

@@ -101,9 +101,15 @@ class RecordingMirror extends StateNotifier<RecordingState> {
     }
   }
 
-  Future<void> togglePause() => _send(MiniIpc.cmdTogglePause);
-  Future<void> stop() => _send(MiniIpc.cmdStop);
-  Future<void> cancel() => _send(MiniIpc.cmdCancel);
+  // Transport failures must reach the controls so the user can recover in
+  // the main window. Never retry a destructive command automatically.
+  Future<void> _sendAction(String command) async {
+    await DesktopMultiWindow.invokeMethod(MiniIpc.mainWindowId, command, null);
+  }
+
+  Future<void> togglePause() => _sendAction(MiniIpc.cmdTogglePause);
+  Future<void> stop() => _sendAction(MiniIpc.cmdStop);
+  Future<void> cancel() => _sendAction(MiniIpc.cmdCancel);
   Future<void> hideMini() => _send(MiniIpc.cmdHideMini);
   Future<void> setSpeakers(int v) =>
       _send(MiniIpc.cmdSetSpeakers, {'value': v});

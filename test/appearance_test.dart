@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speakr_app/theme/appearance.dart';
 import 'package:speakr_app/theme/colors.dart';
+import 'package:speakr_app/theme/typography.dart';
 
 class _Draft extends StatefulWidget {
   const _Draft();
@@ -31,6 +32,30 @@ class _DraftState extends State<_Draft> {
 }
 
 void main() {
+  test('all palettes keep primary controls and warning text legible', () {
+    final saved = appAppearance.toJson();
+    addTearDown(() => appAppearance.apply(saved));
+    double contrast(Color a, Color b) {
+      final x = a.computeLuminance(), y = b.computeLuminance();
+      return ((x > y ? x : y) + .05) / ((x > y ? y : x) + .05);
+    }
+
+    for (final mode in ['light', 'dark']) {
+      for (final palette in MimioPalette.values) {
+        appAppearance.apply({'mode': mode, 'palette': palette.name});
+        final theme = buildSpeakrTheme();
+        expect(theme.colorScheme.primary, SpeakrColors.accent);
+        expect(
+          contrast(theme.colorScheme.primary, theme.colorScheme.onPrimary),
+          greaterThanOrEqualTo(4.5),
+        );
+        expect(
+          contrast(SpeakrColors.warningSurface, SpeakrColors.ink),
+          greaterThanOrEqualTo(4.5),
+        );
+      }
+    }
+  });
   setUp(() => SharedPreferences.setMockInitialValues({}));
   test(
     'preferences survive controller recreation and mirror transfer',

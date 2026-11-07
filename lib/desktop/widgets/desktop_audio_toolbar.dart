@@ -159,15 +159,15 @@ class DesktopAudioToolbar extends ConsumerWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: SpeakrColors.recordRed.withValues(alpha: .45),
+                      color: SpeakrColors.accent.withValues(alpha: .45),
                       width: 2,
                     ),
                   ),
                   padding: const EdgeInsets.all(4),
-                  child: const DecoratedBox(
+                  child: DecoratedBox(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: SpeakrColors.recordRed,
+                      color: SpeakrColors.accent,
                     ),
                   ),
                 ),
@@ -200,7 +200,7 @@ class AudioSessionReadout extends StatelessWidget {
     final color = state.uploading
         ? SpeakrColors.tagDesign
         : state.started
-        ? SpeakrColors.recordRed
+        ? SpeakrColors.accent
         : SpeakrColors.muted;
     final label = state.uploading
         ? 'Uploading'

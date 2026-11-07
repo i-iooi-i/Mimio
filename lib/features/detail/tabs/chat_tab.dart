@@ -103,7 +103,7 @@ class _ChatTabState extends ConsumerState<ChatTab> {
                   style: SpeakrText.serif(
                     size: 13,
                     height: 1.45,
-                    style: FontStyle.italic,
+                    style: FontStyle.normal,
                     color: SpeakrColors.ink2,
                   ),
                 ),
@@ -179,7 +179,7 @@ class _ChatTabState extends ConsumerState<ChatTab> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
-                        borderSide: BorderSide(color: SpeakrColors.ink),
+                        borderSide: BorderSide(color: SpeakrColors.accent),
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -197,13 +197,13 @@ class _ChatTabState extends ConsumerState<ChatTab> {
                     height: 40,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: SpeakrColors.ink,
+                      color: SpeakrColors.accent,
                       shape: BoxShape.circle,
                     ),
                     child: SpeakrIconView(
                       SpeakrIcon.send,
                       size: 18,
-                      color: SpeakrColors.bg,
+                      color: SpeakrColors.onAccent,
                     ),
                   ),
                 ),
@@ -249,7 +249,7 @@ class _Message extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                color: isUser ? SpeakrColors.ink : Colors.transparent,
+                color: isUser ? SpeakrColors.accent : Colors.transparent,
                 border: isUser ? null : Border.all(color: SpeakrColors.line),
                 borderRadius: BorderRadius.circular(isUser ? 14 : 6),
               ),
@@ -258,7 +258,7 @@ class _Message extends StatelessWidget {
                 style: SpeakrText.serif(
                   size: 13.5,
                   height: 1.5,
-                  color: isUser ? SpeakrColors.bg : SpeakrColors.ink,
+                  color: isUser ? SpeakrColors.onAccent : SpeakrColors.ink,
                 ),
               ),
             ),

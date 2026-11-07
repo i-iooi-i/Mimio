@@ -206,6 +206,12 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
     return 0;
   }
 
+  // Process recording-window handoff before plugins can consume activation.
+  if (mini_window_native_ &&
+      mini_window_native_->HandleWindowMessage(hwnd, message, wparam, lparam)) {
+    return 0;
+  }
+
   // Give Flutter, including plugins, an opportunity to handle window messages.
   if (flutter_controller_) {
     std::optional<LRESULT> result =
@@ -216,11 +222,6 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
     }
   }
 
-  // Let the mini-window helper consume its retry-apply timer ticks.
-  if (mini_window_native_ &&
-      mini_window_native_->HandleWindowMessage(hwnd, message, wparam, lparam)) {
-    return 0;
-  }
 
   switch (message) {
     case WM_FONTCHANGE:

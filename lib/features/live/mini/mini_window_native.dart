@@ -11,16 +11,28 @@ class MiniWindowNative {
 
   static const _channel = MethodChannel('speakr/mini_window_native');
 
+  static void setMainRestoreHandler(Future<void> Function()? handler) {
+    _channel.setMethodCallHandler(
+      handler == null
+          ? null
+          : (call) async {
+              if (call.method == 'mainRestored') await handler();
+            },
+    );
+  }
+
   /// Apply always-on-top, no-taskbar, fixed size, and place the window in
   /// the top-right of the primary monitor. Safe to call multiple times.
   static Future<void> applyMiniChrome({
-    int width = 248,
-    int height = 40,
+    int width = 320,
+    int height = 56,
+    bool previewTaskbar = false,
   }) async {
     try {
       await _channel.invokeMethod('applyMiniChrome', {
         'width': width,
         'height': height,
+        'previewTaskbar': previewTaskbar,
       });
     } on MissingPluginException {
       // Helper not registered (non-Windows or older runner build) — silent.

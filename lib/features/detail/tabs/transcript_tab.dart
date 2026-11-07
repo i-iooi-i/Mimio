@@ -184,7 +184,7 @@ class _Bubble extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                color: isMe ? SpeakrColors.ink : SpeakrColors.surface,
+                color: isMe ? SpeakrColors.accent : SpeakrColors.surface,
                 border: isMe ? null : Border.all(color: SpeakrColors.line),
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(16),
@@ -202,7 +202,7 @@ class _Bubble extends StatelessWidget {
                 style: SpeakrText.serif(
                   size: 14.5,
                   height: 1.45,
-                  color: isMe ? SpeakrColors.bg : SpeakrColors.ink,
+                  color: isMe ? SpeakrColors.onAccent : SpeakrColors.ink,
                 ),
               ),
             ),

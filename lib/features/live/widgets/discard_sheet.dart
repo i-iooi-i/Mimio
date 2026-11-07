@@ -122,7 +122,7 @@ class DiscardSheet extends ConsumerWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: SpeakrColors.bg,
+          color: SpeakrColors.onAccent,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(14),
             topRight: Radius.circular(14),
@@ -156,7 +156,7 @@ class DiscardSheet extends ConsumerWidget {
               child: MonoEyebrow(
                 tr("Discard recording"),
                 size: 9,
-                color: SpeakrColors.danger,
+                color: SpeakrColors.accent,
               ),
             ),
             const SizedBox(height: 8),
@@ -175,7 +175,7 @@ class DiscardSheet extends ConsumerWidget {
                 size: 13,
                 color: SpeakrColors.muted,
                 height: 1.45,
-              ).copyWith(fontStyle: FontStyle.italic),
+              ).copyWith(fontStyle: FontStyle.normal),
             ),
             const SizedBox(height: 20),
             GestureDetector(
@@ -184,14 +184,14 @@ class DiscardSheet extends ConsumerWidget {
                 height: 48,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: SpeakrColors.danger,
+                  color: SpeakrColors.accent,
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
                   tr("Discard recording").toUpperCase(),
                   style: SpeakrText.mono(
                     size: 11,
-                    color: SpeakrColors.bg,
+                    color: SpeakrColors.onAccent,
                     letterSpacing: 1.5,
                   ),
                 ),

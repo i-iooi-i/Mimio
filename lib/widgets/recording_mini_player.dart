@@ -213,19 +213,17 @@ class _Bar extends ConsumerWidget {
               ),
               const SizedBox(width: 9),
               _PillButton(
-                background: SpeakrColors.ink.withValues(
-                  alpha: .16,
-                ), // ~16% white — primary
+                background: SpeakrColors.accent,
                 onTap: uploading ? null : controller.togglePause,
                 child: SpeakrIconView(
                   paused ? SpeakrIcon.play : SpeakrIcon.pause,
                   size: 12,
-                  color: SpeakrColors.ink,
+                  color: SpeakrColors.onAccent,
                 ),
               ),
               const SizedBox(width: 9),
               _PillButton(
-                background: SpeakrColors.recordingDot.withValues(alpha: 0.95),
+                background: SpeakrColors.accent,
                 onTap: uploading ? null : handleStop,
                 child: uploading
                     ? SizedBox(
@@ -233,14 +231,14 @@ class _Bar extends ConsumerWidget {
                         height: 12,
                         child: CircularProgressIndicator(
                           strokeWidth: 1.6,
-                          color: SpeakrColors.ink,
+                          color: SpeakrColors.onAccent,
                         ),
                       )
                     : Container(
                         width: 8,
                         height: 8,
                         decoration: BoxDecoration(
-                          color: SpeakrColors.ink,
+                          color: SpeakrColors.onAccent,
                           borderRadius: BorderRadius.circular(1.5),
                         ),
                       ),

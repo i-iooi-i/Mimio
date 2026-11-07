@@ -30,3 +30,11 @@ final speakrApiProvider = Provider<SpeakrApi>((ref) {
 final configProvider = FutureProvider<Config>((ref) async {
   return ref.watch(speakrApiProvider).getConfig();
 });
+
+final currentUserInfoProvider =
+    FutureProvider.autoDispose<Map<String, dynamic>>(
+      (ref) => ref.watch(speakrApiProvider).getCurrentUser(),
+    );
+final transcriptionInfoProvider = FutureProvider<Map<String, dynamic>>(
+  (ref) => ref.watch(speakrApiProvider).getTranscriptionInfo(),
+);

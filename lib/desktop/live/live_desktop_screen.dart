@@ -260,8 +260,8 @@ class _LeftPane extends StatelessWidget {
                   ? null
                   : onStart,
               style: FilledButton.styleFrom(
-                backgroundColor: SpeakrColors.recordRed,
-                foregroundColor: Colors.white,
+                backgroundColor: SpeakrColors.accent,
+                foregroundColor: SpeakrColors.onAccent,
                 fixedSize: const Size(108, 108),
                 shape: const CircleBorder(),
                 padding: EdgeInsets.zero,
@@ -290,10 +290,10 @@ class _LeftPane extends StatelessWidget {
                 const SizedBox(width: 28),
                 _PillBtn(
                   label: tr('Stop & save'),
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.stop_rounded,
                     size: 24,
-                    color: SpeakrColors.recordRed,
+                    color: SpeakrColors.accent,
                   ),
                   onTap: uploading ? null : controller.stopAndUpload,
                 ),
@@ -455,9 +455,9 @@ class _BigPauseButton extends StatelessWidget {
       width: 108,
       height: 108,
       child: Material(
-        color: SpeakrColors.ink,
+        color: SpeakrColors.accent,
         shape: const CircleBorder(),
-        elevation: 12,
+        elevation: 0,
         shadowColor: SpeakrColors.ink.withValues(alpha: 0.18),
         child: InkWell(
           customBorder: const CircleBorder(),
@@ -466,7 +466,7 @@ class _BigPauseButton extends StatelessWidget {
             child: SpeakrIconView(
               paused ? SpeakrIcon.play : SpeakrIcon.pause,
               size: 38,
-              color: SpeakrColors.bg,
+              color: SpeakrColors.onAccent,
             ),
           ),
         ),
@@ -775,7 +775,7 @@ class _VideoSourceCard extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: title != null
-                  ? const Color(0xFF3A8A5A)
+                  ? SpeakrColors.ok
                   : SpeakrColors.line,
             ),
           ),

@@ -214,7 +214,7 @@ class _OnboardingDesktopScreenState
                             size: 48,
                             height: 1.1,
                             weight: FontWeight.w400,
-                            style: FontStyle.italic,
+                            style: FontStyle.normal,
                           ),
                         ),
                         if (slide.headTrailing.isNotEmpty)
@@ -542,7 +542,7 @@ class _ContinueButton extends StatelessWidget {
     LanguageScope.watch(context);
     AppearanceScope.watch(context);
     return Material(
-      color: SpeakrColors.ink,
+      color: SpeakrColors.accent,
       shape: const StadiumBorder(),
       child: InkWell(
         customBorder: const StadiumBorder(),
@@ -557,7 +557,7 @@ class _ContinueButton extends StatelessWidget {
                   height: 16,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: SpeakrColors.bg,
+                    color: SpeakrColors.onAccent,
                   ),
                 )
               : Row(
@@ -568,14 +568,14 @@ class _ContinueButton extends StatelessWidget {
                       style: SpeakrText.sans(
                         size: 13,
                         weight: FontWeight.w500,
-                        color: SpeakrColors.bg,
+                        color: SpeakrColors.onAccent,
                       ),
                     ),
                     const SizedBox(width: 8),
                     SpeakrIconView(
                       SpeakrIcon.chev,
                       size: 16,
-                      color: SpeakrColors.bg,
+                      color: SpeakrColors.onAccent,
                     ),
                   ],
                 ),
@@ -586,6 +586,7 @@ class _ContinueButton extends StatelessWidget {
 }
 
 class _WaveArtPainter extends CustomPainter {
+  _WaveArtPainter() : super(repaint: appAppearance);
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = SpeakrColors.ink.withValues(alpha: 0.85);
@@ -612,6 +613,7 @@ class _WaveArtPainter extends CustomPainter {
 }
 
 class _ServerStackPainter extends CustomPainter {
+  _ServerStackPainter() : super(repaint: appAppearance);
   @override
   void paint(Canvas canvas, Size size) {
     final stroke = Paint()
@@ -629,7 +631,7 @@ class _ServerStackPainter extends CustomPainter {
       canvas.drawCircle(
         Offset(20, 25.0 + i * 18),
         1.5,
-        Paint()..color = i == 2 ? const Color(0xFF3DDC97) : SpeakrColors.ink,
+        Paint()..color = i == 2 ? SpeakrColors.accent : SpeakrColors.ink,
       );
     }
   }

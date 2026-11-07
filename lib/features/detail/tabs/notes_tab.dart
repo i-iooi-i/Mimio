@@ -78,6 +78,10 @@ class _NotesTabState extends ConsumerState<NotesTab> {
                     padding: const EdgeInsets.all(20),
                     styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
                         .copyWith(
+                          em: const TextStyle(
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w500,
+                          ),
                           p: SpeakrText.sans(size: 13.5, height: 1.55),
                           h1: SpeakrText.sans(size: 20),
                           h2: SpeakrText.sans(size: 17),

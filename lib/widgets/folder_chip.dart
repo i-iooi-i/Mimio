@@ -1,3 +1,4 @@
+import '../theme/appearance.dart';
 import 'package:flutter/material.dart';
 
 import '../api/models.dart';
@@ -31,6 +32,7 @@ class FolderChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return Container(
       padding: const EdgeInsets.fromLTRB(6, 2, 8, 2),
       decoration: BoxDecoration(
@@ -80,13 +82,14 @@ class FolderFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppearanceScope.watch(context);
     return InkWell(
       borderRadius: BorderRadius.circular(100),
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         decoration: BoxDecoration(
-          color: selected ? SpeakrColors.ink : Colors.transparent,
+          color: selected ? SpeakrColors.accent : Colors.transparent,
           borderRadius: BorderRadius.circular(100),
           border: selected ? null : Border.all(color: SpeakrColors.line),
         ),
@@ -111,7 +114,7 @@ class FolderFilterChip extends StatelessWidget {
               label,
               style: SpeakrText.sans(
                 size: 13,
-                color: selected ? SpeakrColors.bg : SpeakrColors.ink2,
+                color: selected ? SpeakrColors.onAccent : SpeakrColors.ink2,
               ),
             ),
           ],

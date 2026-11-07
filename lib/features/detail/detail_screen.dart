@@ -580,7 +580,7 @@ class _TabBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: selected ? SpeakrColors.ink : Colors.transparent,
+                      color: selected ? SpeakrColors.accent : Colors.transparent,
                       width: 2,
                     ),
                   ),
@@ -596,7 +596,7 @@ class _TabBar extends StatelessWidget {
                           size: 13,
                           weight: FontWeight.w500,
                           color: selected
-                              ? SpeakrColors.ink
+                              ? SpeakrColors.accent
                               : SpeakrColors.muted,
                         ),
                       ),

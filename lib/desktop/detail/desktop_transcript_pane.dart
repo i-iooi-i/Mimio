@@ -280,7 +280,7 @@ class _DesktopTranscriptPaneState extends ConsumerState<DesktopTranscriptPane> {
                                       size: 13.5,
                                       height: 1.5,
                                       color: active
-                                          ? SpeakrColors.ink
+                                          ? SpeakrColors.accent
                                           : SpeakrColors.ink2,
                                     ),
                                   ),

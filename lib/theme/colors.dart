@@ -34,6 +34,11 @@ class SpeakrColors {
   static Color get danger =>
       isDark ? const Color(0xFFF0806E) : const Color(0xFFBC3529);
 
+  static Color get warningSurface =>
+      isDark ? const Color(0xFF30291A) : const Color(0xFFFFF6E0);
+  static Color get warningBorder =>
+      isDark ? const Color(0xFF8B733F) : const Color(0xFFE8C97A);
+
   // Tag preset colors (tags from data.js / direction-a-3.jsx)
   static const tagRoadmap = Color(0xFFF0806E);
   static const tagEngineering = Color(0xFF70C9AC);

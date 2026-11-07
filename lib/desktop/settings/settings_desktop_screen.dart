@@ -1,11 +1,13 @@
+import '../../widgets/folder_defaults_settings.dart';
+import '../../widgets/auto_summary_settings.dart';
+import '../../widgets/settings_field.dart';
 import 'package:speakr_app/widgets/avatar_settings.dart';
 import 'package:speakr_app/widgets/appearance_picker.dart';
 import 'package:speakr_app/theme/appearance.dart';
 import 'package:speakr_app/l10n/strings.dart';
 
-import 'dart:io' show Platform, SocketException;
+import 'dart:io' show Platform;
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +15,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../api/models.dart';
 import '../../api/providers.dart';
-import '../../api/speakr_api.dart';
 import '../../services/app_info.dart';
 import '../../services/auto_record/auto_record_providers.dart';
 import '../../services/auto_record/auto_record_settings.dart'
@@ -27,6 +28,7 @@ import '../../theme/typography.dart';
 import '../../theme/tokens.dart';
 import '../../utils/formatters.dart';
 import '../../widgets/speakr_icons.dart';
+import '../../widgets/server_connection_settings.dart';
 import '../shell/desktop_shortcuts.dart';
 
 enum _SettingsSection {
@@ -34,6 +36,7 @@ enum _SettingsSection {
   server,
   recording,
   transcription,
+  folderDefaults,
   appearance,
   shortcuts,
   about,
@@ -48,11 +51,8 @@ class SettingsDesktopScreen extends ConsumerStatefulWidget {
 
 class _SettingsDesktopScreenState extends ConsumerState<SettingsDesktopScreen> {
   _SettingsSection _section = _SettingsSection.server;
-  bool _serverChecking = false;
-  bool _serverOk = false;
   int? _storageBytes;
   int? _recordingsCount;
-  bool _autoSummarize = true;
 
   @override
   void initState() {
@@ -61,42 +61,15 @@ class _SettingsDesktopScreenState extends ConsumerState<SettingsDesktopScreen> {
   }
 
   Future<void> _probeServer() async {
-    setState(() => _serverChecking = true);
-    bool ok = false;
     StatsResponse? stats;
     try {
       stats = await ref.read(speakrApiProvider).getStats();
-      ok = true;
-    } on SpeakrApiException catch (e) {
-      ok = e.statusCode != null || !_isNetworkFailure(e.cause);
-    } catch (_) {
-      ok = true;
-    }
+    } catch (_) {}
     if (!mounted) return;
     setState(() {
-      _serverChecking = false;
-      _serverOk = ok;
       _storageBytes = stats?.storage?.usedBytes;
       _recordingsCount = stats?.recordings?.total;
     });
-  }
-
-  bool _isNetworkFailure(Object? cause) {
-    if (cause is DioException) {
-      switch (cause.type) {
-        case DioExceptionType.connectionTimeout:
-        case DioExceptionType.sendTimeout:
-        case DioExceptionType.receiveTimeout:
-        case DioExceptionType.connectionError:
-        case DioExceptionType.badCertificate:
-          return true;
-        case DioExceptionType.cancel:
-        case DioExceptionType.badResponse:
-        case DioExceptionType.unknown:
-          return cause.error is SocketException;
-      }
-    }
-    return cause is SocketException;
   }
 
   Future<void> _signOut() async {
@@ -148,8 +121,14 @@ class _SettingsDesktopScreenState extends ConsumerState<SettingsDesktopScreen> {
           VerticalDivider(width: 1, color: SpeakrColors.line),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(60, 40, 60, 60),
-              child: _content(),
+              padding: const EdgeInsets.fromLTRB(32, 32, 32, 40),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1000),
+                  child: _content(),
+                ),
+              ),
             ),
           ),
         ],
@@ -163,28 +142,19 @@ class _SettingsDesktopScreenState extends ConsumerState<SettingsDesktopScreen> {
         return _ProfileSection();
       case _SettingsSection.server:
         return _ServerSection(
-          checking: _serverChecking,
-          serverOk: _serverOk,
-          onRefresh: _probeServer,
+          onSaved: () async {
+            await _probeServer();
+          },
         );
       case _SettingsSection.recording:
-        return _RecordingSection(
-          autoSummarize: _autoSummarize,
-          onAutoSummarize: (v) async {
-            final prev = _autoSummarize;
-            setState(() => _autoSummarize = v);
-            try {
-              await ref.read(speakrApiProvider).setAutoSummarization(v);
-            } catch (e) {
-              if (!mounted) return;
-              setState(() => _autoSummarize = prev);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(tr("Could not update setting: {0}", [e])),
-                ),
-              );
-            }
-          },
+        return const _RecordingSection();
+      case _SettingsSection.folderDefaults:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _SectionHead(title: tr('Folder defaults')),
+            const FolderDefaultsSettings(),
+          ],
         );
       case _SettingsSection.transcription:
         return const _TranscriptionSection();
@@ -221,6 +191,7 @@ class _SubSidebar extends StatelessWidget {
     (_SettingsSection.server, tr("Server")),
     (_SettingsSection.recording, tr("Recording")),
     (_SettingsSection.transcription, tr("Transcription")),
+    (_SettingsSection.folderDefaults, tr("Folder defaults")),
     (_SettingsSection.appearance, tr("Appearance")),
     if (supportsKeyboardShortcuts)
       (_SettingsSection.shortcuts, tr("Shortcuts")),
@@ -256,7 +227,7 @@ class _SubSidebar extends StatelessWidget {
                     border: Border(
                       left: BorderSide(
                         color: sec == current
-                            ? SpeakrColors.ink
+                            ? SpeakrColors.accent
                             : Colors.transparent,
                         width: 2,
                       ),
@@ -270,7 +241,7 @@ class _SubSidebar extends StatelessWidget {
                           ? FontWeight.w500
                           : FontWeight.w400,
                       color: sec == current
-                          ? SpeakrColors.ink
+                          ? SpeakrColors.accent
                           : SpeakrColors.ink2,
                     ),
                   ),
@@ -375,93 +346,21 @@ class _SectionHead extends StatelessWidget {
   }
 }
 
-class _Field extends StatelessWidget {
-  const _Field({required this.label, this.hint, required this.child});
-  final String label;
-  final String? hint;
-  final Widget child;
-  @override
-  Widget build(BuildContext context) {
-    LanguageScope.watch(context);
-    AppearanceScope.watch(context);
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: SpeakrColors.line)),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 14),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 180,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: SpeakrText.sans(
-                      size: 13,
-                      weight: FontWeight.w500,
-                      color: SpeakrColors.ink,
-                    ),
-                  ),
-                  if (hint != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      hint!,
-                      style: SpeakrText.sans(
-                        size: 11.5,
-                        color: SpeakrColors.muted,
-                        height: 1.4,
-                      ).copyWith(fontStyle: FontStyle.italic),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 30),
-          Expanded(child: child),
-        ],
-      ),
-    );
-  }
+class _Field extends SettingsField {
+  const _Field({required super.label, super.hint, required super.child});
 }
 
 class _TextValue extends StatelessWidget {
-  const _TextValue({required this.text, this.mono = false});
+  const _TextValue({required this.text});
   final String text;
-  final bool mono;
   @override
-  Widget build(BuildContext context) {
-    LanguageScope.watch(context);
-    AppearanceScope.watch(context);
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 360),
-      height: 34,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: SpeakrColors.surface,
-        border: Border.all(color: SpeakrColors.line),
-        borderRadius: SpeakrRadius.menu,
-      ),
-      child: Text(
-        text,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: mono
-            ? SpeakrText.mono(
-                size: 12,
-                color: SpeakrColors.ink,
-                letterSpacing: 0,
-              )
-            : SpeakrText.sans(size: 13, color: SpeakrColors.ink),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8),
+    child: SelectableText(
+      text,
+      style: SpeakrText.sans(size: 14, color: SpeakrColors.ink2),
+    ),
+  );
 }
 
 class _Toggle extends StatelessWidget {
@@ -481,7 +380,7 @@ class _Toggle extends StatelessWidget {
           width: 36,
           height: 20,
           decoration: BoxDecoration(
-            color: on ? SpeakrColors.ink : SpeakrColors.line,
+            color: on ? SpeakrColors.accent : SpeakrColors.line,
             borderRadius: BorderRadius.circular(100),
           ),
           child: AnimatedAlign(
@@ -493,7 +392,7 @@ class _Toggle extends StatelessWidget {
                 width: 16,
                 height: 16,
                 decoration: BoxDecoration(
-                  color: SpeakrColors.bg,
+                  color: on ? SpeakrColors.onAccent : SpeakrColors.bg,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -505,208 +404,76 @@ class _Toggle extends StatelessWidget {
   }
 }
 
-class _DropdownStub extends StatelessWidget {
-  const _DropdownStub({required this.value});
-  final String value;
-  @override
-  Widget build(BuildContext context) {
-    LanguageScope.watch(context);
-    AppearanceScope.watch(context);
-    return Container(
-      height: 34,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: SpeakrColors.surface,
-        border: Border.all(color: SpeakrColors.line),
-        borderRadius: SpeakrRadius.menu,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            value,
-            style: SpeakrText.sans(size: 13, color: SpeakrColors.ink),
-          ),
-          const SizedBox(width: 10),
-          CustomPaint(
-            size: const Size(10, 10),
-            painter: _ChevPainter(SpeakrColors.ink2),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ChevPainter extends CustomPainter {
-  _ChevPainter(this.color);
-  final Color color;
-  @override
-  void paint(Canvas canvas, Size size) {
-    final p = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.3
-      ..strokeCap = StrokeCap.round;
-    final path = Path()
-      ..moveTo(size.width * 0.25, size.height * 0.4)
-      ..lineTo(size.width * 0.5, size.height * 0.65)
-      ..lineTo(size.width * 0.75, size.height * 0.4);
-    canvas.drawPath(path, p);
-  }
-
-  @override
-  bool shouldRepaint(covariant _ChevPainter old) => old.color != color;
-}
-
-// ─────────────────────────────────────────────────────────
-// Sections
-// ─────────────────────────────────────────────────────────
-
 class _ProfileSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     LanguageScope.watch(context);
     AppearanceScope.watch(context);
+    final profile = ref.watch(currentUserInfoProvider);
+    final data = profile.value;
+    final user = data?['user'] is Map ? data!['user'] as Map : data;
+    final name = user?['name'] ?? user?['username'];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _SectionHead(
-          title: tr("Profile"),
-          sub: tr("Customize your profile on this device."),
+          title: tr('Profile'),
+          sub: tr(
+            'Avatar changes apply only to this device. Account details are read from Speakr.',
+          ),
         ),
         const AvatarSettings(),
         const SizedBox(height: 24),
         _Field(
-          label: tr("Display name"),
-          child: _TextValue(text: tr("Speakr user")),
+          label: tr('Display name'),
+          hint: tr('Read-only here. Edit account details in Speakr.'),
+          child: _TextValue(
+            text: profile.isLoading
+                ? tr('Loading…')
+                : name?.toString() ?? tr('Not available'),
+          ),
         ),
         _Field(
-          label: tr("Default speaker label"),
+          label: tr('Default speaker label'),
           hint: tr("What 'me' is named in transcripts."),
-          child: _TextValue(text: tr("Speakr user")),
+          child: _TextValue(
+            text: tr(
+              'Managed by Speakr; no editable setting is available here.',
+            ),
+          ),
         ),
+        if (profile.hasError)
+          Text(
+            tr(
+              'Could not load server information. Check connection and read permission.',
+            ),
+            style: SpeakrText.sans(size: 13, color: SpeakrColors.danger),
+          ),
       ],
     );
   }
 }
 
-class _ServerSection extends ConsumerWidget {
-  const _ServerSection({
-    required this.checking,
-    required this.serverOk,
-    required this.onRefresh,
-  });
-  final bool checking;
-  final bool serverOk;
-  final Future<void> Function() onRefresh;
-
-  String _maskToken(String t) {
-    if (t.length <= 4) return '•••• $t';
-    return '••••••••${t.substring(t.length - 4)}';
-  }
-
+class _ServerSection extends StatelessWidget {
+  const _ServerSection({required this.onSaved});
+  final Future<void> Function() onSaved;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    LanguageScope.watch(context);
-    AppearanceScope.watch(context);
-    final asyncCreds = ref.watch(currentCredentialsProvider);
-    final creds = asyncCreds.value;
-    final url = creds?.baseUrl ?? '—';
-    final token = creds?.token == null ? '—' : _maskToken(creds!.token);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _SectionHead(
-          title: tr("Server"),
-          sub: tr(
-            "Speakr is self-hosted. Audio and transcripts stay on the machine you point this app at.",
-          ),
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _SectionHead(
+        title: tr('Server'),
+        sub: tr(
+          'Edit the connection used by Mimio. This does not change the server itself.',
         ),
-        _Field(
-          label: tr("Server URL"),
-          child: _TextValue(text: url, mono: true),
-        ),
-        _Field(
-          label: tr("API token"),
-          hint: tr("Generated in Settings → API Tokens on your server."),
-          child: _TextValue(text: token, mono: true),
-        ),
-        _Field(
-          label: tr("Connection"),
-          hint: tr("Last verified just now."),
-          child: Row(
-            children: [
-              if (checking)
-                SizedBox(
-                  width: 12,
-                  height: 12,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1.5,
-                    color: SpeakrColors.ink,
-                  ),
-                )
-              else
-                Container(
-                  width: 7,
-                  height: 7,
-                  decoration: BoxDecoration(
-                    color: serverOk ? SpeakrColors.ok : SpeakrColors.danger,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              const SizedBox(width: 7),
-              Text(
-                checking
-                    ? tr("CHECKING…")
-                    : (serverOk ? tr("CONNECTED") : tr("UNREACHABLE")),
-                style: SpeakrText.mono(
-                  size: 11,
-                  color: serverOk ? SpeakrColors.ok : SpeakrColors.danger,
-                  letterSpacing: 1.5,
-                ),
-              ),
-              const Spacer(),
-              Material(
-                color: SpeakrColors.surface,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: SpeakrColors.line),
-                  borderRadius: SpeakrRadius.control,
-                ),
-                child: InkWell(
-                  borderRadius: SpeakrRadius.control,
-                  onTap: checking ? null : onRefresh,
-                  child: Container(
-                    height: 30,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    alignment: Alignment.center,
-                    child: Text(
-                      tr("Test connection"),
-                      style: SpeakrText.sans(
-                        size: 12,
-                        color: SpeakrColors.ink2,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+      ),
+      ServerConnectionSettings(onSaved: onSaved),
+    ],
+  );
 }
 
 class _RecordingSection extends ConsumerWidget {
-  const _RecordingSection({
-    required this.autoSummarize,
-    required this.onAutoSummarize,
-  });
-  final bool autoSummarize;
-  final ValueChanged<bool> onAutoSummarize;
-
+  const _RecordingSection();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     LanguageScope.watch(context);
@@ -722,7 +489,9 @@ class _RecordingSection extends ConsumerWidget {
       children: [
         _SectionHead(
           title: tr("Recording"),
-          sub: tr("Defaults for new recordings."),
+          sub: tr(
+            "Recording defaults apply to this device. Auto-summarize is saved to Speakr.",
+          ),
         ),
         _Field(
           label: tr("Record microphone by default"),
@@ -823,11 +592,10 @@ class _RecordingSection extends ConsumerWidget {
         ),
         _Field(
           label: tr("Auto-summarize"),
-          hint: tr("Generate a TL;DR after each recording completes."),
-          child: _Toggle(
-            on: autoSummarize,
-            onTap: () => onAutoSummarize(!autoSummarize),
+          hint: tr(
+            'Read from Speakr and verified after saving. Requires account permission.',
           ),
+          child: const AutoSummarySettings(),
         ),
         if (!kIsWeb && Platform.isWindows)
           _Field(
@@ -964,39 +732,63 @@ class _AutoUploadField extends StatelessWidget {
   }
 }
 
-class _TranscriptionSection extends StatelessWidget {
+class _TranscriptionSection extends ConsumerWidget {
   const _TranscriptionSection();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     LanguageScope.watch(context);
     AppearanceScope.watch(context);
+    final info = ref.watch(transcriptionInfoProvider);
+    final data = info.value;
+    final capabilities = data?['capabilities'] is Map
+        ? data!['capabilities'] as Map
+        : null;
+    String value(Object? item) => info.isLoading
+        ? tr('Loading…')
+        : item?.toString() ?? tr('Not available');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _SectionHead(
-          title: tr("Transcription"),
+          title: tr('Transcription'),
           sub: tr(
-            "How Speakr turns audio into words. These settings live on the server — change them in the Speakr web admin.",
+            'Read-only server information. Configure global defaults in Speakr; per-recording options are available when reprocessing.',
           ),
         ),
         _Field(
-          label: tr("Model"),
-          child: _DropdownStub(value: tr("Server default")),
+          label: tr('Connector'),
+          child: _TextValue(text: value(data?['connector'])),
         ),
         _Field(
-          label: tr("Language"),
-          child: _DropdownStub(value: tr("Auto-detect")),
+          label: tr('Model'),
+          child: _TextValue(text: value(data?['default_model'])),
         ),
         _Field(
-          label: tr("Speaker diarization"),
-          hint: tr("Separate voices into labeled speakers."),
-          child: const _Toggle(on: true),
+          label: tr('Speaker diarization'),
+          hint: tr('Capability support does not mean the feature is enabled.'),
+          child: _TextValue(
+            text: capabilities?.containsKey('diarization') == true
+                ? tr(
+                    capabilities!['diarization'] == true
+                        ? 'Supported'
+                        : 'Not supported',
+                  )
+                : tr('Not available'),
+          ),
         ),
         _Field(
-          label: tr("Filter filler words"),
-          hint: tr("Remove 'um', 'uh', 'like' from the readable transcript."),
-          child: const _Toggle(on: false),
+          label: tr('Language'),
+          child: _TextValue(
+            text: tr('Choose a language per recording when reprocessing.'),
+          ),
         ),
+        if (info.hasError)
+          Text(
+            tr(
+              'Could not load server information. Check connection and read permission.',
+            ),
+            style: SpeakrText.sans(size: 13, color: SpeakrColors.danger),
+          ),
       ],
     );
   }
@@ -1074,7 +866,7 @@ class _TimeChip extends StatelessWidget {
         height: 30,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color: selected ? SpeakrColors.ink : Colors.transparent,
+          color: selected ? SpeakrColors.accent : Colors.transparent,
           border: Border.all(color: SpeakrColors.line),
           borderRadius: BorderRadius.circular(100),
         ),
@@ -1083,7 +875,7 @@ class _TimeChip extends StatelessWidget {
           label,
           style: SpeakrText.mono(
             size: 11,
-            color: selected ? SpeakrColors.bg : SpeakrColors.muted,
+            color: selected ? SpeakrColors.onAccent : SpeakrColors.muted,
             letterSpacing: 0,
           ),
         ),
@@ -1186,7 +978,6 @@ class _AboutSection extends StatelessWidget {
               text: ref
                   .watch(appVersionProvider)
                   .maybeWhen(data: (v) => v, orElse: () => '—'),
-              mono: true,
             ),
           ),
         ),
@@ -1203,12 +994,12 @@ class _AboutSection extends StatelessWidget {
         TextButton(
           onPressed: onSignOut,
           style: TextButton.styleFrom(
-            foregroundColor: SpeakrColors.danger,
+            foregroundColor: SpeakrColors.accent,
             padding: EdgeInsets.zero,
           ),
           child: Text(
             tr("Sign out"),
-            style: SpeakrText.sans(size: 13, color: SpeakrColors.danger),
+            style: SpeakrText.sans(size: 13, color: SpeakrColors.accent),
           ),
         ),
       ],

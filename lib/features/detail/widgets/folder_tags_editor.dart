@@ -266,7 +266,7 @@ class _EditorCard extends StatelessWidget {
               style: SpeakrText.sans(
                 size: 12,
                 color: SpeakrColors.muted,
-              ).copyWith(fontStyle: FontStyle.italic),
+              ).copyWith(fontStyle: FontStyle.normal),
             )
           else ...[
             if (selectedTags.isNotEmpty)
@@ -327,7 +327,7 @@ class _NoneFolderChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
         decoration: BoxDecoration(
-          color: selected ? SpeakrColors.ink : Colors.transparent,
+          color: selected ? SpeakrColors.accent : Colors.transparent,
           border: Border.all(color: SpeakrColors.line),
           borderRadius: BorderRadius.circular(3),
         ),
@@ -335,7 +335,7 @@ class _NoneFolderChip extends StatelessWidget {
           tr("NONE"),
           style: SpeakrText.mono(
             size: 10,
-            color: selected ? SpeakrColors.bg : SpeakrColors.muted,
+            color: selected ? SpeakrColors.onAccent : SpeakrColors.muted,
             letterSpacing: 1,
           ),
         ),
