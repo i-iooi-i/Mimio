@@ -10,19 +10,15 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 
 ## 界面一览
 
-以下为 **AI 生成的界面示意图**，内容均为虚构示例，不是真实截图；具体布局和外观以实际应用为准。
+以下图片以 **Mimio 真实界面截图**为底图，通过 AI 将录音标题、人名、文件夹、标签和个人头像替换为演示内容，保留原有布局与主题。AI 编辑可能带来少量文字或渲染差异。
 
 **录音库** · 浏览和整理录音资料。
 
-![Mimio 录音库 AI 示意图，使用虚构录音标题](docs/showcase/library-illustration.png)
+![Mimio 录音库截图，文字与个人头像已通过 AI 替换为演示内容](docs/showcase/library-sanitized.png)
 
-**胶囊录音条** · 工作时也能随手控制录音。
+**录音工作区** · 录音控制、实时波形和声音来源选择。
 
-![Mimio 胶囊录音条 AI 示意图](docs/showcase/recorder-illustration.png)
-
-**转录与摘要** · 对照原文查看谈话重点。
-
-![Mimio 转录与摘要 AI 示意图，使用虚构对话](docs/showcase/review-illustration.png)
+![Mimio 录音工作区截图，标签与个人头像已通过 AI 替换为演示内容](docs/showcase/recording-sanitized.png)
 
 ## 当前版本
 

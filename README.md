@@ -10,19 +10,15 @@ Mimio is an independently maintained desktop client based on [Minutes for Speakr
 
 ## A look at Mimio
 
-These **AI-generated interface illustrations** use entirely fictional demo content. They are not real screenshots; exact layout and appearance may differ from the application.
+Based on actual Mimio screenshots, with recording titles, names, folder/tag labels and the personal avatar replaced using AI for privacy. The images retain the application's layout and theme; AI editing may introduce minor rendering differences.
 
-**Recording library** — a place to browse and organize your recordings.
+**Recording library** — browse and organize your recordings.
 
-![AI-generated Mimio recording library illustration with fictional demo titles](docs/showcase/library-illustration.png)
+![Mimio recording library screenshot with AI-replaced demo text and avatar](docs/showcase/library-sanitized.png)
 
-**Floating recorder** — compact recording controls while you work.
+**Recording workspace** — recording controls, waveform and audio source selection.
 
-![AI-generated Mimio capsule recorder illustration](docs/showcase/recorder-illustration.png)
-
-**Transcript and summary** — review the conversation alongside its key points.
-
-![AI-generated Mimio transcript and summary illustration with fictional demo text](docs/showcase/review-illustration.png)
+![Mimio recording workspace screenshot with AI-replaced demo labels and avatar](docs/showcase/recording-sanitized.png)
 
 ## Version status
 
