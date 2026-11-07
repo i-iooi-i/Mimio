@@ -8,6 +8,22 @@ A Windows companion for recording, reviewing and organizing audio with your own 
 
 Mimio is an independently maintained desktop client based on [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr). It is not an official Speakr client and is not maintained or endorsed by the Speakr team. You need your own Speakr server and API token; transcription and AI features are provided by that server.
 
+## A look at Mimio
+
+These **AI-generated interface illustrations** use entirely fictional demo content. They are not real screenshots; exact layout and appearance may differ from the application.
+
+**Recording library** — a place to browse and organize your recordings.
+
+![AI-generated Mimio recording library illustration with fictional demo titles](docs/showcase/library-illustration.png)
+
+**Floating recorder** — compact recording controls while you work.
+
+![AI-generated Mimio capsule recorder illustration](docs/showcase/recorder-illustration.png)
+
+**Transcript and summary** — review the conversation alongside its key points.
+
+![AI-generated Mimio transcript and summary illustration with fictional demo text](docs/showcase/review-illustration.png)
+
 ## Version status
 
 | | Version | What it contains |

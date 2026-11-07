@@ -8,6 +8,22 @@
 
 Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr) 开发的社区分支，不是 Speakr 官方客户端，也不由 Speakr 团队维护或背书。使用前需要准备自己的 Speakr 服务器和 API 令牌；转录及 AI 功能由服务端提供。
 
+## 界面一览
+
+以下为 **AI 生成的界面示意图**，内容均为虚构示例，不是真实截图；具体布局和外观以实际应用为准。
+
+**录音库** · 浏览和整理录音资料。
+
+![Mimio 录音库 AI 示意图，使用虚构录音标题](docs/showcase/library-illustration.png)
+
+**胶囊录音条** · 工作时也能随手控制录音。
+
+![Mimio 胶囊录音条 AI 示意图](docs/showcase/recorder-illustration.png)
+
+**转录与摘要** · 对照原文查看谈话重点。
+
+![Mimio 转录与摘要 AI 示意图，使用虚构对话](docs/showcase/review-illustration.png)
+
 ## 当前版本
 
 | | 版本 | 说明 |
