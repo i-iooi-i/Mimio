@@ -263,9 +263,7 @@ class _DetailPanel extends StatelessWidget {
   const _DetailPanel({required this.child});
   final Widget child;
   @override
-  Widget build(BuildContext context) => MimioPanel(
-    child: child,
-  );
+  Widget build(BuildContext context) => MimioPanel(child: child);
 }
 
 class _TitleBlock extends ConsumerWidget {
@@ -329,7 +327,7 @@ class _TitleBlock extends ConsumerWidget {
                   label: folder.name,
                   color: parseHexColor(folder.color),
                 ),
-              for (final t in recording.tags) TagChip(tag: t, filled: true),
+              for (final t in recording.tags) TagChip(tag: t),
               if ((recording.participants ?? '').isNotEmpty)
                 _MetadataItem(
                   icon: Icons.people_outline,

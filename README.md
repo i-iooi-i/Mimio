@@ -10,11 +10,15 @@ Mimio is an independently maintained desktop client based on [Minutes for Speakr
 
 ## A look at Mimio
 
-Based on actual Mimio screenshots, with recording titles, names, folder/tag labels and the personal avatar replaced using AI for privacy. The images retain the application's layout and theme; AI editing may introduce minor rendering differences.
+Based on actual Mimio 0.3.40 screenshots. Personal account names, work-project labels and the avatar were replaced using AI for privacy. The public-program transcript and summary are retained with the screenshot owner’s permission. The images retain the application's layout and theme; AI editing may introduce minor rendering differences.
 
 **Recording library** — browse and organize your recordings.
 
 ![Mimio recording library screenshot with AI-replaced demo text and avatar](docs/showcase/library-sanitized.png)
+
+**Transcript and summary** — review the transcript alongside the generated summary.
+
+![Mimio transcript and summary with privacy-edited sidebar](docs/showcase/detail-sanitized.png)
 
 **Recording workspace** — recording controls, waveform and audio source selection.
 
@@ -24,8 +28,8 @@ Based on actual Mimio screenshots, with recording titles, names, folder/tag labe
 
 | | Version | What it contains |
 | --- | --- | --- |
-| Current source | **0.3.36** | Recorder capsule, theme consistency, server settings synchronization and credential privacy fixes |
-| Published Windows download | **[0.3.26](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.26)** | The previous portable release, including the Windows location-startup fix |
+| Current source | **0.3.40** | Recorder capsule, theme consistency, server settings synchronization and credential privacy fixes |
+| Published Windows download | **[0.3.40](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.40)** | Latest portable release, including compact library spacing, unified tags and theme-colored waveforms |
 
 The features below describe the current source. A source update does not replace the downloadable release. Mimio currently validates **Windows x64**; Android/iOS code inherited from upstream is not a verified Mimio release.
 

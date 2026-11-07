@@ -33,7 +33,7 @@ class MiniWave extends StatelessWidget {
       child: CustomPaint(
         painter: _MiniWavePainter(
           seed: seed,
-          color: color ?? SpeakrColors.ink,
+          color: color ?? SpeakrColors.accent,
           progress: progress,
           bars: bars,
         ),

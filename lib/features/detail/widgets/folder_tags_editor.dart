@@ -278,7 +278,6 @@ class _EditorCard extends StatelessWidget {
                     CustomColorTagChip(
                       label: t.name,
                       color: parseHexColor(t.color),
-                      filled: true,
                       onTap: () => onToggleTag(t),
                       trailing: Text(
                         '×',

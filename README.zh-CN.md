@@ -10,11 +10,15 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 
 ## 界面一览
 
-以下图片以 **Mimio 真实界面截图**为底图，通过 AI 将录音标题、人名、文件夹、标签和个人头像替换为演示内容，保留原有布局与主题。AI 编辑可能带来少量文字或渲染差异。
+以下图片基于 **Mimio 0.3.40 真实截图**，使用 AI 替换个人账号名、工作项目名称和个人头像。经截图提供者确认，公开节目的转录与摘要予以保留。AI 编辑可能带来少量渲染差异。
 
 **录音库** · 浏览和整理录音资料。
 
 ![Mimio 录音库截图，文字与个人头像已通过 AI 替换为演示内容](docs/showcase/library-sanitized.png)
+
+**转录与摘要** — 对照查看转录内容与生成的摘要。
+
+![Mimio 转录与摘要，侧边栏已做隐私替换](docs/showcase/detail-sanitized.png)
 
 **录音工作区** · 录音控制、实时波形和声音来源选择。
 
@@ -24,8 +28,8 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 
 | | 版本 | 说明 |
 | --- | --- | --- |
-| 当前源码 | **0.3.36** | 胶囊录音条、主题统一、服务端设置同步与凭据隐私修复 |
-| 已发布的 Windows 下载 | **[0.3.26](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.26)** | 上一个绿色版，包含启动时触发 Windows 定位的修复 |
+| 当前源码 | **0.3.40** | 胶囊录音条、主题统一、服务端设置同步与凭据隐私修复 |
+| 已发布的 Windows 下载 | **[0.3.40](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.40)** | 最新绿色版，包含紧凑列表布局、统一标签和主题色波形 |
 
 以下功能介绍以当前源码为准。推送源码不等于更新下载包。本分支目前验证的是 **Windows x64**；仓库保留上游 Android/iOS 代码，但没有将其作为已验证的 Mimio 移动端发布。
 

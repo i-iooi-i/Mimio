@@ -20,6 +20,7 @@ import '../../services/audio/live_audio_recorder.dart' show CaptureWindow;
 import '../../theme/colors.dart';
 import '../../theme/typography.dart';
 import '../../widgets/speakr_icons.dart';
+import '../../widgets/tag_chip.dart';
 import '../shell/desktop_shortcuts.dart';
 
 class LiveDesktopScreen extends ConsumerStatefulWidget {
@@ -536,11 +537,7 @@ class _RecordingIdentity extends ConsumerWidget {
                 InkWell(
                   onTap: () => controller.toggleTag(tag.name),
                   borderRadius: BorderRadius.circular(100),
-                  child: _IdentityChip(
-                    icon: Icons.sell_outlined,
-                    label: tag.name,
-                    color: parseHexColor(tag.color),
-                  ),
+                  child: TagChip(tag: tag),
                 ),
               MimioMenuButton<String>(
                 tooltip: tr('Tags'),
@@ -774,9 +771,7 @@ class _VideoSourceCard extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: title != null
-                  ? SpeakrColors.ok
-                  : SpeakrColors.line,
+              color: title != null ? SpeakrColors.ok : SpeakrColors.line,
             ),
           ),
           const SizedBox(width: 12),

@@ -76,7 +76,7 @@ class _DesktopWaveState extends State<DesktopWave>
               painter: _WavePainter(
                 progress: widget.progress,
                 seed: widget.seed,
-                color: widget.color ?? SpeakrColors.ink,
+                color: widget.color ?? SpeakrColors.accent,
                 motion: _motion,
                 showPlayhead: widget.onSeek != null,
               ),

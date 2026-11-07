@@ -6,9 +6,8 @@ import '../theme/appearance.dart';
 import '../theme/typography.dart';
 
 class TagChip extends StatelessWidget {
-  const TagChip({super.key, required this.tag, this.filled = false});
+  const TagChip({super.key, required this.tag});
   final Tag tag;
-  final bool filled;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +15,16 @@ class TagChip extends StatelessWidget {
     final c = parseHexColor(tag.color);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 2),
-      decoration: BoxDecoration(
-        color: filled ? c.withValues(alpha: 0.06) : null,
-        border: Border.all(color: c.withValues(alpha: 0.33)),
-        borderRadius: BorderRadius.circular(100),
-      ),
+      decoration: _tagDecoration(c),
       child: Text(
-        tag.name.toUpperCase(),
-        style: SpeakrText.mono(size: 10, color: _tagInk(c), letterSpacing: 1),
+        tag.name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: SpeakrText.sans(
+          size: 11,
+          weight: FontWeight.w400,
+          color: _tagInk(c, background: _tagBackground(c)),
+        ),
       ),
     );
   }
@@ -34,13 +35,11 @@ class CustomColorTagChip extends StatelessWidget {
     super.key,
     required this.label,
     required this.color,
-    this.filled = false,
     this.trailing,
     this.onTap,
   });
   final String label;
   final Color color;
-  final bool filled;
   final Widget? trailing;
   final VoidCallback? onTap;
 
@@ -48,18 +47,18 @@ class CustomColorTagChip extends StatelessWidget {
   Widget build(BuildContext context) {
     AppearanceScope.watch(context);
     final inner = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
-      decoration: BoxDecoration(
-        color: filled ? color.withValues(alpha: 0.06) : null,
-        border: Border.all(color: color.withValues(alpha: 0.33)),
-        borderRadius: BorderRadius.circular(100),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 2),
+      decoration: _tagDecoration(color),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            label.toUpperCase(),
-            style: SpeakrText.sans(size: 11, color: _tagInk(color)),
+            label,
+            style: SpeakrText.sans(
+              size: 11,
+              weight: FontWeight.w400,
+              color: _tagInk(color, background: _tagBackground(color)),
+            ),
           ),
           if (trailing != null) const SizedBox(width: 5),
           if (trailing != null) trailing!,
@@ -142,15 +141,29 @@ class _DashedBorderPainter extends CustomPainter {
   bool shouldRepaint(covariant _DashedBorderPainter old) => old.color != color;
 }
 
-// Keep category hues while ensuring readable text on either theme.
-Color _tagInk(Color source) {
+// Opaque, softly tinted surfaces keep tag contrast consistent across parents.
+Color _tagBackground(Color source) => Color.alphaBlend(
+  source.withValues(alpha: SpeakrColors.isDark ? .20 : .13),
+  SpeakrColors.surface,
+);
+
+BoxDecoration _tagDecoration(Color source) => BoxDecoration(
+  color: _tagBackground(source),
+  border: Border.all(
+    color: source.withValues(alpha: SpeakrColors.isDark ? .22 : .12),
+  ),
+  borderRadius: BorderRadius.circular(100),
+);
+
+// Keep category hues while ensuring readable text on the actual tinted surface.
+Color _tagInk(Color source, {Color? background}) {
   var result = source;
-  final background = SpeakrColors.bgAlt.computeLuminance();
+  final luminance = (background ?? SpeakrColors.bgAlt).computeLuminance();
   for (var i = 0; i < 24; i++) {
     final l = result.computeLuminance();
     final ratio =
-        (l > background ? l + .05 : background + .05) /
-        (l > background ? background + .05 : l + .05);
+        (l > luminance ? l + .05 : luminance + .05) /
+        (l > luminance ? luminance + .05 : l + .05);
     if (ratio >= 4.5) break;
     result = Color.lerp(
       result,

@@ -453,7 +453,6 @@ class MetadataCard extends StatelessWidget {
                       CustomColorTagChip(
                         label: name,
                         color: _colorFor(name),
-                        filled: true,
                         onTap: tagPickerOpen ? () => onToggleTag(name) : null,
                         trailing: tagPickerOpen
                             ? Text(

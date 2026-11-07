@@ -7,6 +7,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:speakr_app/api/models.dart';
 import 'package:speakr_app/desktop/library/library_desktop_screen.dart';
 import 'package:speakr_app/desktop/shell/desktop_shell.dart';
+import 'package:speakr_app/desktop/widgets/desktop_wave.dart';
+import 'package:speakr_app/desktop/widgets/participant_avatars.dart';
 import 'package:speakr_app/features/library/library_controller.dart';
 import 'package:speakr_app/l10n/strings.dart';
 import 'package:speakr_app/services/preferences/time_format_preference.dart';
@@ -15,7 +17,7 @@ import 'package:speakr_app/theme/typography.dart';
 
 void main() {
   setUpAll(() => initializeDateFormatting('zh_CN'));
-  for (final width in [670.0, 1100.0]) {
+  for (final width in [670.0, 1100.0, 1600.0]) {
     testWidgets('Chinese library fits $width and play navigates explicitly', (
       tester,
     ) async {
@@ -59,7 +61,11 @@ void main() {
                     'status': 'COMPLETED',
                     'audio_duration': 500,
                     'created_at': '2026-10-28T08:00:00Z',
-                    'participants': '张明、王强、李娜',
+                    'participants': '张明、王强、李娜、陈林、赵敏、周宁、孙悦',
+                    'tags': [
+                      {'id': 1, 'name': 'AI 应用', 'color': '#ff3399'},
+                      {'id': 2, 'name': 'Project-AI', 'color': '#3388ff'},
+                    ],
                   }),
                 ),
               ],
@@ -81,6 +87,18 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
+      expect(find.byType(DesktopWave), findsOneWidget);
+      if (width >= 1100) {
+        expect(find.text('+4'), findsOneWidget);
+        final gap =
+            tester.getTopLeft(find.byType(ParticipantAvatars)).dx -
+            tester.getTopRight(find.text('Project-AI')).dx;
+        expect(gap, inInclusiveRange(14, 30));
+        expect(
+          tester.getTopLeft(find.text('AI 应用')).dy,
+          tester.getTopLeft(find.text('Project-AI')).dy,
+        );
+      }
       await tester.tap(find.byTooltip('搜索 (Ctrl+K)'));
       await tester.pumpAndSettle();
       expect(find.byType(TextField), findsOneWidget);

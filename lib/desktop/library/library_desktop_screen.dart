@@ -489,20 +489,22 @@ class _ListRowState extends ConsumerState<_ListRow> {
                         ],
                       ),
                     ),
-                    if (wide) ...[
-                      const SizedBox(width: 24),
+                    ...[
+                      const SizedBox(width: 16),
                       Expanded(
-                        flex: 6,
+                        flex: 4,
                         child: ExcludeSemantics(
                           child: DesktopWave(seed: r.id, height: 34),
                         ),
                       ),
-                      const SizedBox(width: 24),
-                      SizedBox(
-                        width: 120,
+                    ],
+                    if (wide && r.tags.isNotEmpty) ...[
+                      const SizedBox(width: 16),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 240),
                         child: Wrap(
-                          spacing: 4,
-                          runSpacing: 4,
+                          spacing: 8,
+                          runSpacing: 6,
                           children: [
                             for (final t in r.tags.take(2)) TagChip(tag: t),
                           ],
@@ -510,7 +512,7 @@ class _ListRowState extends ConsumerState<_ListRow> {
                       ),
                     ],
                     if (wide && (r.participants ?? '').trim().isNotEmpty) ...[
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 14),
                       ParticipantAvatars(participants: r.participants!),
                     ],
                     const SizedBox(width: 18),
