@@ -29,7 +29,7 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 | | 版本 | 说明 |
 | --- | --- | --- |
 | 当前源码 | **0.3.41** | 胶囊录音条、主题统一、服务端设置同步与凭据隐私修复 |
-| 已发布的 Windows 下载 | **[0.3.40](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.40)** | 最新绿色版，包含紧凑列表布局、统一标签和主题色波形 |
+| 已发布的 Windows 下载 | **[0.3.41](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.41)** | 由 GitHub Actions 构建，附带校验和与来源证明；界面沿用 0.3.40 |
 
 以下功能介绍以当前源码为准。推送源码不等于更新下载包。本分支目前验证的是 **Windows x64**；仓库保留上游 Android/iOS 代码，但没有将其作为已验证的 Mimio 移动端发布。
 

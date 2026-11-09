@@ -29,7 +29,7 @@ Based on actual Mimio 0.3.40 screenshots. Personal account names, work-project l
 | | Version | What it contains |
 | --- | --- | --- |
 | Current source | **0.3.41** | Recorder capsule, theme consistency, server settings synchronization and credential privacy fixes |
-| Published Windows download | **[0.3.40](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.40)** | Latest portable release, including compact library spacing, unified tags and theme-colored waveforms |
+| Published Windows download | **[0.3.41](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.41)** | Built by GitHub Actions with checksums and verified build provenance; UI unchanged from 0.3.40 |
 
 The features below describe the current source. A source update does not replace the downloadable release. Mimio currently validates **Windows x64**; Android/iOS code inherited from upstream is not a verified Mimio release.
 
