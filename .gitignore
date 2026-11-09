@@ -74,3 +74,5 @@ android/app/upload-keystore.jks
 *.wav
 *.mp3
 *.mp4
+
+/dist/

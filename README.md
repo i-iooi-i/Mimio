@@ -28,7 +28,7 @@ Based on actual Mimio 0.3.40 screenshots. Personal account names, work-project l
 
 | | Version | What it contains |
 | --- | --- | --- |
-| Current source | **0.3.40** | Recorder capsule, theme consistency, server settings synchronization and credential privacy fixes |
+| Current source | **0.3.41** | Recorder capsule, theme consistency, server settings synchronization and credential privacy fixes |
 | Published Windows download | **[0.3.40](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.40)** | Latest portable release, including compact library spacing, unified tags and theme-colored waveforms |
 
 The features below describe the current source. A source update does not replace the downloadable release. Mimio currently validates **Windows x64**; Android/iOS code inherited from upstream is not a verified Mimio release.
@@ -44,7 +44,7 @@ The features below describe the current source. A source update does not replace
 ## Get started
 
 1. Set up a reachable Speakr server and create an API token in its settings. Grant the permissions needed for the actions you intend to use.
-2. Download the Windows ZIP from this repository's [Releases](https://github.com/i-iooi-i/Mimio/releases). Check its `SHA256SUMS.txt`, extract the complete folder and run `speakr_app.exe`.
+2. Download the Windows ZIP from this repository's [Releases](https://github.com/i-iooi-i/Mimio/releases). Check its `SHA256SUMS.txt`, extract the complete folder and run `Mimio.exe`.
 3. Enter your server address and API token. Use the final server address: authenticated API requests do not automatically follow redirects.
 4. Select your recording sources and start recording. Processing, summaries and other AI capabilities depend on your server configuration.
 
@@ -73,9 +73,11 @@ flutter test
 flutter build windows --release
 ```
 
-The complete output is in `build/windows/x64/runner/Release/`. For public builds, use a clean, neutral build path and scan the output for personal paths and secrets before packaging. The inherited release workflow and installer still use upstream naming; do not treat them as a ready-to-run Mimio publishing pipeline.
+The complete output is in `build/windows/x64/runner/Release/`. The [public Windows release workflow](.github/workflows/release.yml) pins Flutter 3.47.8, resolves locked dependencies, analyzes, tests, builds, packages, attests and downloads the release assets for verification. Push a matching `mimio-vX.Y.Z` tag to release; manual runs only produce test artifacts.
 
-The latest local review passed static analysis, **152 tests**, and a clean Windows release build. This is a recorded local result, not a promise that every platform or server configuration has been tested. See [shared controls](docs/mimio-controls.md) and [contributor guidance](AGENTS.md).
+New workflow releases include `SHA256SUMS.txt`, `BUILD-INFO.json` and GitHub build provenance. See [release verification](docs/windows-release.md). Provenance links the ZIP to the public workflow; it is not Windows code signing or a guarantee of application security.
+
+See [shared controls](docs/mimio-controls.md) and [contributor guidance](AGENTS.md).
 
 ## Community and credits
 
@@ -83,6 +85,6 @@ The latest local review passed static analysis, **152 tests**, and a clean Windo
 - **Upstream client:** [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr), by Rene Scott Simonsen and contributors.
 - **Mimio:** desktop interface, localization, recorder and settings improvements maintained in this repository.
 
-The companion-app guide currently lists the upstream client, not Mimio. Linking to it does not imply an official listing or endorsement. Report client-specific problems to this repository, with the version, Windows version and reproduction steps. Remove server addresses, tokens, avatar links and personal recording content from screenshots and logs before sharing them.
+Mimio is independently maintained. A community listing does not imply testing or endorsement by the Speakr team. Report client-specific problems to this repository, with the version, Windows version and reproduction steps. Remove server addresses, tokens, avatar links and personal recording content from screenshots and logs before sharing them.
 
 Distributed under the [MIT license](LICENSE). The original copyright notice and bundled third-party license notices are preserved. Older screenshots and store documents in `docs/` describe the upstream application and are retained as reference; they are not screenshots of the current Mimio interface.

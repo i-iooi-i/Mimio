@@ -28,7 +28,7 @@ Mimio 是基于 [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speak
 
 | | 版本 | 说明 |
 | --- | --- | --- |
-| 当前源码 | **0.3.40** | 胶囊录音条、主题统一、服务端设置同步与凭据隐私修复 |
+| 当前源码 | **0.3.41** | 胶囊录音条、主题统一、服务端设置同步与凭据隐私修复 |
 | 已发布的 Windows 下载 | **[0.3.40](https://github.com/i-iooi-i/Mimio/releases/tag/mimio-v0.3.40)** | 最新绿色版，包含紧凑列表布局、统一标签和主题色波形 |
 
 以下功能介绍以当前源码为准。推送源码不等于更新下载包。本分支目前验证的是 **Windows x64**；仓库保留上游 Android/iOS 代码，但没有将其作为已验证的 Mimio 移动端发布。
@@ -73,9 +73,11 @@ flutter test
 flutter build windows --release
 ```
 
-完整产物位于 `build/windows/x64/runner/Release/`。公开构建应使用不含个人信息的独立路径，并在打包前扫描个人路径和敏感信息。仓库继承的自动发布脚本和安装器仍有上游命名，不能直接视为已经整理好的 Mimio 发布流程。
+完整产物位于 `build/windows/x64/runner/Release/`。Windows 绿色版由 [公开发布工作流](.github/workflows/release.yml) 构建：固定 Flutter 3.47.8、锁定依赖、代码分析、测试、构建、打包、来源证明和发布包下载回验。推送与源码版本一致的 `mimio-vX.Y.Z` 标签即可触发；手动运行只生成测试产物，不发布版本。
 
-最近一次本地审查通过静态分析、**152 项测试**和干净目录 Windows Release 构建。这是本地验证记录，不代表所有平台及服务器配置均已测试。共用控件说明见 [界面控件文档](docs/mimio-controls.md)，开发说明见 [AGENTS.md](AGENTS.md)。
+新版发布附带 `SHA256SUMS.txt`、`BUILD-INFO.json` 和 GitHub 构建来源证明。验证方法见 [发布说明](docs/windows-release.md)。这说明发布包来自对应的公开工作流，不代表 Windows 代码签名或功能安全认证。
+
+共用控件说明见 [界面控件文档](docs/mimio-controls.md)，开发说明见 [AGENTS.md](AGENTS.md)。
 
 ## 项目关系与反馈
 
@@ -83,6 +85,6 @@ flutter build windows --release
 - **上游客户端：** [Minutes for Speakr](https://github.com/Inrego/Minutes-for-Speakr)，由 Rene Scott Simonsen 及贡献者开发。
 - **Mimio：** 在本仓库维护桌面界面、汉化、录音交互和设置功能改进。
 
-配套应用页面目前列出的是上游客户端，并未列出 Mimio；这里的引用不表示官方收录或背书。反馈客户端问题时，请附上版本、Windows 版本和复现步骤，分享截图与日志前移除服务器地址、令牌、头像链接和私人录音内容。
+Mimio 独立维护；社区收录不表示 Speakr 团队测试或背书。反馈客户端问题时，请附上版本、Windows 版本和复现步骤，分享截图与日志前移除服务器地址、令牌、头像链接和私人录音内容。
 
 本项目使用 [MIT 许可证](LICENSE)，保留原作者版权及第三方许可声明。`docs/` 中的旧截图和商店说明作为上游历史参考保留，不代表当前 Mimio 界面。
