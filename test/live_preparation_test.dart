@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:speakr_app/widgets/recording_orb.dart';
+import 'package:speakr_app/widgets/speakr_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -133,7 +135,10 @@ void main() {
     expect(recorder.starts, 0);
     expect(recorder.current.paused, true);
     expect(recorder.current.elapsedSeconds, 35);
-    expect(find.byType(FilledButton), findsNothing);
+    expect(
+      tester.widget<RecordingOrb>(find.byType(RecordingOrb)).icon,
+      SpeakrIcon.play,
+    );
     expect(tester.takeException(), isNull);
   });
   testWidgets(

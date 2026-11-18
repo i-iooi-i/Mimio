@@ -20,6 +20,7 @@ import '../../services/audio/live_audio_recorder.dart' show CaptureWindow;
 import '../../theme/colors.dart';
 import '../../theme/typography.dart';
 import '../../widgets/speakr_icons.dart';
+import '../../widgets/recording_orb.dart';
 import '../../widgets/tag_chip.dart';
 import '../shell/desktop_shortcuts.dart';
 
@@ -253,24 +254,16 @@ class _LeftPane extends StatelessWidget {
             ),
           const Spacer(),
           if (!started && !uploading)
-            FilledButton(
+            RecordingOrb(
+              icon: SpeakrIcon.mic,
+              label: tr(starting ? 'Starting recording' : 'Start recording'),
+              busy: starting,
               onPressed:
                   starting ||
                       (!state.micEnabled &&
                           state.systemMode == SystemAudioMode.off)
                   ? null
                   : onStart,
-              style: FilledButton.styleFrom(
-                backgroundColor: SpeakrColors.accent,
-                foregroundColor: SpeakrColors.onAccent,
-                fixedSize: const Size(108, 108),
-                shape: const CircleBorder(),
-                padding: EdgeInsets.zero,
-              ),
-              child: Semantics(
-                label: tr(starting ? 'Starting recording' : 'Start recording'),
-                child: const Icon(Icons.fiber_manual_record, size: 38),
-              ),
             )
           else
             Wrap(
@@ -284,9 +277,18 @@ class _LeftPane extends StatelessWidget {
                   onTap: uploading ? null : onDiscard,
                 ),
                 const SizedBox(width: 28),
-                _BigPauseButton(
-                  paused: paused,
-                  onTap: uploading ? null : controller.togglePause,
+                RecordingOrb(
+                  icon: paused ? SpeakrIcon.play : SpeakrIcon.pause,
+                  label: tr(
+                    uploading
+                        ? 'Uploading'
+                        : paused
+                        ? 'Resume'
+                        : 'Pause',
+                  ),
+                  recording: !paused && !uploading,
+                  busy: uploading,
+                  onPressed: uploading ? null : controller.togglePause,
                 ),
                 const SizedBox(width: 28),
                 _PillBtn(
@@ -437,38 +439,6 @@ class _PillBtn extends StatelessWidget {
                 style: SpeakrText.sans(size: 14, color: SpeakrColors.ink),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BigPauseButton extends StatelessWidget {
-  const _BigPauseButton({required this.paused, required this.onTap});
-  final bool paused;
-  final VoidCallback? onTap;
-  @override
-  Widget build(BuildContext context) {
-    LanguageScope.watch(context);
-    AppearanceScope.watch(context);
-    return SizedBox(
-      width: 108,
-      height: 108,
-      child: Material(
-        color: SpeakrColors.accent,
-        shape: const CircleBorder(),
-        elevation: 0,
-        shadowColor: SpeakrColors.ink.withValues(alpha: 0.18),
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          onTap: onTap,
-          child: Center(
-            child: SpeakrIconView(
-              paused ? SpeakrIcon.play : SpeakrIcon.pause,
-              size: 38,
-              color: SpeakrColors.onAccent,
-            ),
           ),
         ),
       ),

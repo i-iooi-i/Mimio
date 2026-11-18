@@ -105,9 +105,10 @@ jobs:
           - Extract the complete ZIP and run Mimio.exe. Windows executable remains unsigned.
           - No personal server settings, tokens, avatars or recordings are bundled.
 
-          此版本将 Windows 绿色版发布迁移到公开的 GitHub Actions 工作流，应用界面与 0.3.40 保持一致。
           完整解压后运行 Mimio.exe；请保留旧版本以便回退。
           EOF
+          printf "\n" >> notes.md
+          cat dist/RELEASE-NOTES.md >> notes.md
           gh release create "$TAG" dist/* --verify-tag --draft --title "Mimio $VERSION" --notes-file notes.md
       - name: Download release assets and verify again
         run: |

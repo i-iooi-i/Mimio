@@ -58,6 +58,8 @@ def main():
             if hashlib.sha256(check.read('Mimio/' + name)).digest() != hashlib.sha256(path.read_bytes()).digest():
                 raise RuntimeError('ZIP content differs from build')
     (dist / 'BUILD-INFO.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    notes = ROOT / 'docs/releases' / f'{version[1]}.md'
+    (dist / 'RELEASE-NOTES.md').write_bytes(notes.read_bytes())
     sums = ''.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n' for p in sorted(dist.iterdir()))
     (dist / 'SHA256SUMS.txt').write_text(sums, encoding='utf-8')
     print(f'Packaged {len(files)} application files: {archive.name}')
